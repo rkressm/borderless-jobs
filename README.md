@@ -22,7 +22,7 @@ The project is in the architecture and delivery-planning stage. No product imple
 
 - [Contribution guide](CONTRIBUTING.md) — atomic changes, worktree discipline, and
   verification expectations.
-- [License status](LICENSE.md) — no open-source license has been selected yet.
+- [MIT License](LICENSE.md) — use, modification, and redistribution terms.
 
 ## Core decisions
 

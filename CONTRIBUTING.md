@@ -30,5 +30,5 @@ and any residual risk. Keep dependency updates separate from unrelated product c
 when practical. Do not merge automated dependency updates without normal review and
 tests.
 
-The project license has not yet been selected. Review [`LICENSE.md`](LICENSE.md) before
-redistributing or accepting external contributions.
+Contributions are provided under the project's [MIT License](LICENSE.md). By submitting
+a contribution, you agree that it may be distributed under those terms.

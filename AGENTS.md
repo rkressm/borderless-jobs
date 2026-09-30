@@ -20,11 +20,14 @@ databases, model providers, and presentation frameworks.
 5. Run the smallest relevant formatter, linter, type check, and test set.
 6. Run affected integration or contract checks before declaring the task complete.
 7. Update documentation, fixtures, schemas, or ADRs when their contract changed.
-8. Report the verified result, commands run, and any remaining risk.
+8. After every required check is green, change the task's status in
+   `docs/development-plan.md` from `[ ] Pending` to `[x] Complete`.
+9. Report the verified result, commands run, and any remaining risk.
 
 Each step must leave the worktree coherent. Stop and diagnose a failing quality gate;
 do not accumulate unrelated changes on top of a red state. Split work again when a
-step cannot be implemented and verified in a focused review.
+step cannot be implemented and verified in a focused review. An unchecked task remains
+incomplete even when implementation exists.
 
 ## Architecture guardrails
 

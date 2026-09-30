@@ -21,12 +21,18 @@ An agent executes one ready task at a time:
 5. run the task's focused verification;
 6. run the affected package's format, lint, type, and test checks;
 7. update contracts, fixtures, or documentation touched by the behavior;
-8. report the result, exact checks, and residual risk before selecting another task.
+8. change the task status from `[ ] Pending` to `[x] Complete` only after every
+   required check is green;
+9. report the result, exact checks, and residual risk before selecting another task.
 
 A failing check ends the task sequence until it is diagnosed. A task that cannot be
 implemented and verified in one focused change must be split before work continues.
 Concurrent agents take tasks with disjoint file ownership and integrate only green
 commits.
+
+The status directly below each task heading is the single completion record. An
+unchecked task is incomplete. A checked task must have satisfied its `Verify` clause
+and the universal definition of done.
 
 ### Universal definition of done
 
@@ -65,15 +71,19 @@ continue on the critical path.
 
 ### F01 — Establish repository metadata
 
+Status: [x] Complete (2026-09-30).
+
 Depends on: none. Estimate: 1 hour.
 
 Result: initialize or repair Git metadata; add a minimal ignore file, line-ending policy,
-license decision placeholder, and repository-level contribution entry point.
+MIT license, and repository-level contribution entry point.
 
 Verify: `git status` identifies the repository; ignored local credentials, environments,
 caches, reports, model weights, and worktree artifacts do not appear as untracked files.
 
 ### F02 — Record supported runtime policy
+
+Status: [ ] Pending.
 
 Depends on: F01. Estimate: 1 hour.
 
@@ -84,6 +94,8 @@ Verify: the runtime version check succeeds from a clean shell; unsupported versi
 with an actionable message.
 
 ### F03 — Create the minimal Python workspace
+
+Status: [ ] Pending.
 
 Depends on: F02. Estimate: 2 hours.
 
@@ -96,6 +108,8 @@ no lockfile change.
 
 ### F04 — Create the dependency admission record
 
+Status: [ ] Pending.
+
 Depends on: F03. Estimate: 1 hour.
 
 Result: add a concise dependency policy and a change template requiring purpose,
@@ -105,6 +119,8 @@ Verify: one accepted and one rejected example dependency are exercised against t
 template; the runtime manifest contains only dependencies used by current code.
 
 ### F05 — Wire the fast quality loop
+
+Status: [ ] Pending.
 
 Depends on: F03. Estimate: 2 hours.
 
@@ -116,6 +132,8 @@ each detected before their fixture is removed.
 
 ### F06 — Add architectural import checks
 
+Status: [ ] Pending.
+
 Depends on: F05. Estimate: 2 hours.
 
 Result: encode inward dependency rules, especially the purity of `eligibility` and the
@@ -125,6 +143,8 @@ Verify: the legal empty package graph passes; a temporary forbidden framework im
 `eligibility` fails the check.
 
 ### F07 — Namespace worktree resources
+
+Status: [ ] Pending.
 
 Depends on: F03. Estimate: 2 hours.
 
@@ -136,6 +156,8 @@ tests cover long names and punctuation.
 
 ### F08 — Add PostgreSQL development composition
 
+Status: [ ] Pending.
+
 Depends on: F07. Estimate: 2 hours.
 
 Result: add a digest-pinned PostgreSQL service with health check, non-default local
@@ -146,6 +168,8 @@ no port or container name is globally hard-coded.
 
 ### F09 — Establish migration plumbing
 
+Status: [ ] Pending.
+
 Depends on: F08. Estimate: 2 hours.
 
 Result: add the selected minimal database and migration dependencies, configuration, and
@@ -155,6 +179,8 @@ Verify: upgrade from empty, downgrade to empty, and upgrade again succeed agains
 disposable database.
 
 ### F10 — Add least-privilege CI
+
+Status: [ ] Pending.
 
 Depends on: F05, F09. Estimate: 3 hours.
 
@@ -167,6 +193,8 @@ development and requires no feed, model, or application secret.
 
 ### F11 — Add supply-chain and secret gates
 
+Status: [ ] Pending.
+
 Depends on: F04, F10. Estimate: 3 hours.
 
 Result: enable dependency review, vulnerability auditing, secret scanning, license
@@ -177,6 +205,8 @@ detected without committing a usable credential.
 
 ### F12 — Prove concurrent worktrees
 
+Status: [ ] Pending.
+
 Depends on: F07, F08, F10. Estimate: 2 hours.
 
 Result: document and exercise two worktrees running fast checks and disposable databases
@@ -186,6 +216,8 @@ Verify: resource identifiers, ports, databases, caches, and generated artifacts 
 separate; stopping one environment does not affect the other.
 
 ### F13 — Rehearse clean setup
+
+Status: [ ] Pending.
 
 Depends on: F11, F12. Estimate: 2 hours.
 
@@ -198,6 +230,8 @@ practical; record elapsed time and any prerequisite not installed by the project
 
 ### W01 — Declare package ownership
 
+Status: [ ] Pending.
+
 Depends on: F13. Estimate: 1 hour.
 
 Result: create package-level documentation for `domain`, `eligibility`, `search`,
@@ -206,6 +240,8 @@ Result: create package-level documentation for `domain`, `eligibility`, `search`
 Verify: import checks pass and no package exposes infrastructure or framework types.
 
 ### W02 — Define foundational value objects
+
+Status: [ ] Pending.
 
 Depends on: W01. Estimate: 2 hours.
 
@@ -216,6 +252,8 @@ Verify: construction, equality, invalid input, and serialization tests pass.
 
 ### W03 — Define the search contract
 
+Status: [ ] Pending.
+
 Depends on: W02. Estimate: 1.5 hours.
 
 Result: place `SearchSpecification` and result ordering primitives in `search`.
@@ -223,6 +261,8 @@ Result: place `SearchSpecification` and result ordering primitives in `search`.
 Verify: normalization, invalid filters, explicit pagination, and round-trip tests pass.
 
 ### W04 — Define the canonical report
+
+Status: [ ] Pending.
 
 Depends on: W02, W03. Estimate: 2 hours.
 
@@ -232,6 +272,8 @@ Result: place the immutable, versioned `SearchReport` and job-result schema in
 Verify: schema and policy versions survive a deterministic serialization round trip.
 
 ### W05 — Build a synthetic in-memory search adapter
+
+Status: [ ] Pending.
 
 Depends on: W03. Estimate: 1.5 hours.
 
@@ -243,6 +285,8 @@ without database or network access.
 
 ### W06 — Add the minimal report-building use case
 
+Status: [ ] Pending.
+
 Depends on: W04, W05. Estimate: 2 hours.
 
 Result: turn a search result into `SearchReport` through one application interface,
@@ -252,6 +296,8 @@ Verify: a frozen clock produces byte-stable report data; missing evidence stays 
 
 ### W07 — Add the JSON renderer
 
+Status: [ ] Pending.
+
 Depends on: W06. Estimate: 1 hour.
 
 Result: serialize canonical JSON with stable field names and explicit schema version.
@@ -259,6 +305,8 @@ Result: serialize canonical JSON with stable field names and explicit schema ver
 Verify: golden contract, UTF-8, deterministic ordering, and stdout behavior pass.
 
 ### W08 — Add the safe static HTML renderer
+
+Status: [ ] Pending.
 
 Depends on: W06. Estimate: 2.5 hours.
 
@@ -270,6 +318,8 @@ offline-open tests pass.
 
 ### W09 — Wire the CLI walking skeleton
 
+Status: [ ] Pending.
+
 Depends on: W07, W08. Estimate: 2 hours.
 
 Result: implement the target search command, JSON/stdout and HTML/output modes, and
@@ -279,6 +329,8 @@ Verify: valid, invalid, empty, `UNCERTAIN`, and write-failure cases have documen
 codes; no database or network is needed.
 
 ### W10 — Lock the end-to-end preview
+
+Status: [ ] Pending.
 
 Depends on: W09. Estimate: 1.5 hours.
 
@@ -291,6 +343,8 @@ all M1 exit conditions are demonstrated.
 
 ### D01 — Add reviewed geographic reference data
 
+Status: [ ] Pending.
+
 Depends on: W02. Estimate: 2 hours.
 
 Result: add versioned ISO country identities, Bolivia, LATAM, South America, Americas,
@@ -299,6 +353,8 @@ worldwide aliases, and documented membership provenance.
 Verify: schema, uniqueness, alias collision, membership, and version tests pass.
 
 ### D02 — Implement explicit geographic inclusion
+
+Status: [ ] Pending.
 
 Depends on: D01. Estimate: 2 hours.
 
@@ -310,6 +366,8 @@ phrases.
 
 ### D03 — Implement exclusion precedence
 
+Status: [ ] Pending.
+
 Depends on: D02. Estimate: 2 hours.
 
 Result: fail explicit Bolivia exclusion and allowlists that omit Bolivia; make specific
@@ -320,6 +378,8 @@ protected exclusion into a pass.
 
 ### D04 — Implement contradiction handling
 
+Status: [ ] Pending.
+
 Depends on: D03. Estimate: 1.5 hours.
 
 Result: irreconcilable evidence yields unknown geography and an annotation candidate
@@ -329,6 +389,8 @@ Verify: contradictory evidence is permutation-invariant and never produces `YES`
 
 ### D05 — Implement engagement policy
 
+Status: [ ] Pending.
+
 Depends on: W02. Estimate: 2.5 hours.
 
 Result: evaluate supported contractor/EOR facts, restricted payroll/work authorization,
@@ -337,6 +399,8 @@ and missing mechanisms with versioned rules.
 Verify: pass, fail, unknown, conflicting mechanism, and non-legal-advice cases pass.
 
 ### D06 — Implement timezone policy
+
+Status: [ ] Pending.
 
 Depends on: W02. Estimate: 2.5 hours.
 
@@ -348,6 +412,8 @@ and no-constraint cases pass with a frozen clock.
 
 ### D07 — Compose the global verdict
 
+Status: [ ] Pending.
+
 Depends on: D04, D05, D06. Estimate: 1.5 hours.
 
 Result: apply the documented three-valued composition across applicable dimensions.
@@ -355,6 +421,8 @@ Result: apply the documented three-valued composition across applicable dimensio
 Verify: exhaustive generated combinations match the truth table.
 
 ### D08 — Produce complete rule traces
+
+Status: [ ] Pending.
 
 Depends on: D07. Estimate: 2 hours.
 
@@ -365,6 +433,8 @@ Verify: every verdict path has at least one trace entry and stable serialization
 
 ### D09 — Protect the first 12 reviewed cases
 
+Status: [ ] Pending.
+
 Depends on: D08. Estimate: 3 hours.
 
 Result: create and independently review critical geography, engagement, timezone, and
@@ -374,6 +444,8 @@ Verify: annotation schema validation, duplicate detection, and deterministic smo
 pass; changing a protected verdict fails CI.
 
 ### D10 — Enforce core quality gates
+
+Status: [ ] Pending.
 
 Depends on: D09. Estimate: 2 hours.
 
@@ -387,6 +459,8 @@ kill representative precedence and composition defects.
 
 ### L01 — Predeclare the experiment
 
+Status: [ ] Pending.
+
 Depends on: D09. Estimate: 1 hour.
 
 Result: select one or two bounded decisions, the deterministic baseline, frozen cases,
@@ -396,6 +470,8 @@ Verify: the experiment document can decide keep/defer without changing its crite
 after results are seen.
 
 ### L02 — Isolate the Laya runtime
+
+Status: [ ] Pending.
 
 Depends on: L01. Estimate: 1.5 hours.
 
@@ -407,6 +483,8 @@ actionable skip rather than a failure.
 
 ### L03 — Run the bounded comparison
 
+Status: [ ] Pending.
+
 Depends on: L02. Estimate: 2 hours.
 
 Result: execute identical cases through deterministic and Laya paths while recording
@@ -416,6 +494,8 @@ Verify: outputs are schema-valid and reproducible enough to compare; no Laya res
 write an eligibility verdict.
 
 ### L04 — Record the keep/defer decision
+
+Status: [ ] Pending.
 
 Depends on: L03. Estimate: 1 hour.
 
@@ -429,6 +509,8 @@ Laya absent.
 
 ### I01 — Verify and encode Jobicy governance
 
+Status: [ ] Pending.
+
 Depends on: D10. Estimate: 2 hours.
 
 Result: record authoritative policy URL, review date, polling, attribution, canonical
@@ -438,6 +520,8 @@ Verify: schema and policy tests reject missing provenance or a renderer-incompat
 policy; uncertain permissions default to private retention.
 
 ### I02 — Define connector contracts
+
+Status: [ ] Pending.
 
 Depends on: I01. Estimate: 1.5 hours.
 
@@ -449,6 +533,8 @@ tests pass.
 
 ### I03 — Implement the fixture connector
 
+Status: [ ] Pending.
+
 Depends on: I02. Estimate: 2 hours.
 
 Result: load licensed, transformed, or synthetic recorded batches through the production
@@ -458,6 +544,8 @@ Verify: complete, empty, malformed, repeated, and checkpointed fixtures pass the
 contract without network access.
 
 ### I04 — Define canonical text normalization
+
+Status: [ ] Pending.
 
 Depends on: I03. Estimate: 3 hours.
 
@@ -469,6 +557,8 @@ and size-limit cases have exact deterministic outputs.
 
 ### I05 — Implement the Jobicy mapper
 
+Status: [ ] Pending.
+
 Depends on: I04. Estimate: 2.5 hours.
 
 Result: map recorded Jobicy responses into source-neutral envelopes while retaining raw
@@ -478,6 +568,8 @@ Verify: shared connector contract covers missing optional fields, schema drift, 
 URLs, oversized fields, and stable content hashes.
 
 ### I06 — Add the opt-in live transport
+
+Status: [ ] Pending.
 
 Depends on: I05. Estimate: 2.5 hours.
 
@@ -489,6 +581,8 @@ content type, oversize response, and cancellation; real smoke test is manual.
 
 ### C01 — Migrate source and fetch records
 
+Status: [ ] Pending.
+
 Depends on: F09, I02. Estimate: 2.5 hours.
 
 Result: add source, policy version, fetch run, and checkpoint tables with constraints.
@@ -496,6 +590,8 @@ Result: add source, policy version, fetch run, and checkpoint tables with constr
 Verify: upgrade/downgrade/re-upgrade and repository round trips pass on PostgreSQL.
 
 ### C02 — Migrate raw and normalized job records
+
+Status: [ ] Pending.
 
 Depends on: C01, I04. Estimate: 3 hours.
 
@@ -507,6 +603,8 @@ and mutable historical content.
 
 ### C03 — Ingest one batch transactionally
 
+Status: [ ] Pending.
+
 Depends on: C02, I03. Estimate: 3 hours.
 
 Result: implement `JobCatalog.ingest` as the sole path from connector envelopes to raw
@@ -516,6 +614,8 @@ Verify: success persists complete provenance; injected failure leaves no partial
 
 ### C04 — Enforce idempotence and version history
 
+Status: [ ] Pending.
+
 Depends on: C03. Estimate: 2.5 hours.
 
 Result: unchanged replay updates observation metadata without a new version; one
@@ -524,6 +624,8 @@ normalized change creates exactly one immutable version.
 Verify: repeated, reordered, interrupted, and concurrent replay tests pass.
 
 ### C05 — Implement closure observations
+
+Status: [ ] Pending.
 
 Depends on: C04. Estimate: 2 hours.
 
@@ -535,6 +637,8 @@ documented behavior.
 
 ### C06 — Expose one-shot pipeline summaries
 
+Status: [ ] Pending.
+
 Depends on: C05, I06. Estimate: 2 hours.
 
 Result: add fixture and opt-in live ingestion commands with run identifier, checkpoint,
@@ -544,6 +648,8 @@ Verify: success, no-op replay, partial item rejection, full rollback, and resume
 return documented exit codes and summaries.
 
 ### C07 — Rehearse catalog recovery
+
+Status: [ ] Pending.
 
 Depends on: C06. Estimate: 2 hours.
 
@@ -556,6 +662,8 @@ every observed change and inactive transition.
 
 ### E01 — Define extracted facts and evidence validation
 
+Status: [ ] Pending.
+
 Depends on: C04, D08. Estimate: 2.5 hours.
 
 Result: define typed facts, confidence, canonical offsets, method/provider provenance,
@@ -566,6 +674,8 @@ are rejected or converted to explicit unknowns.
 
 ### E02 — Parse explicit geography
 
+Status: [ ] Pending.
+
 Depends on: E01, D01. Estimate: 3 hours.
 
 Result: extract country and reviewed-region mentions with exact evidence and boundaries.
@@ -574,6 +684,8 @@ Verify: aliases, overlapping names, negation adjacency, Unicode, and false subst
 matches pass focused fixtures.
 
 ### E03 — Resolve geographic restrictions
+
+Status: [ ] Pending.
 
 Depends on: E02. Estimate: 2.5 hours.
 
@@ -584,6 +696,8 @@ Verify: rule inputs produced from parser facts match the protected cases.
 
 ### E04 — Parse engagement facts
 
+Status: [ ] Pending.
+
 Depends on: E01. Estimate: 2.5 hours.
 
 Result: extract explicit contractor, EOR, payroll, authorization, visa, and relocation
@@ -592,6 +706,8 @@ statements with evidence.
 Verify: phrase variants, negation, multiple mechanisms, and ambiguous language pass.
 
 ### E05 — Parse timezone facts
+
+Status: [ ] Pending.
 
 Depends on: E01. Estimate: 2.5 hours.
 
@@ -603,6 +719,8 @@ preference/requirement distinctions pass.
 
 ### E06 — Parse descriptive metadata
 
+Status: [ ] Pending.
+
 Depends on: E01. Estimate: 3 hours.
 
 Result: extract salary/currency, seniority, skills, and common role metadata as report
@@ -612,6 +730,8 @@ Verify: malformed ranges, locale formats, repeated skills, missing units, and fa
 positives pass.
 
 ### E07 — Compose deterministic extraction
+
+Status: [ ] Pending.
 
 Depends on: E03, E04, E05, E06. Estimate: 2 hours.
 
@@ -623,6 +743,8 @@ canonical result.
 
 ### E08 — Persist extraction and assessment runs
 
+Status: [ ] Pending.
+
 Depends on: E07, C04. Estimate: 3 hours.
 
 Result: migrate and store extraction runs, facts, evidence, assessments, and rule
@@ -632,6 +754,8 @@ Verify: rerunning the same version is idempotent; changed extractor or policy ve
 remain separately replayable.
 
 ### S01 — Implement PostgreSQL search
+
+Status: [ ] Pending.
 
 Depends on: E08, W03. Estimate: 3 hours.
 
@@ -643,6 +767,8 @@ query count pass against seeded PostgreSQL.
 
 ### S02 — Build reports from persisted search
 
+Status: [ ] Pending.
+
 Depends on: S01, W06. Estimate: 2.5 hours.
 
 Result: replace the synthetic adapter with persisted search while preserving the same
@@ -652,6 +778,8 @@ Verify: synthetic and database adapters produce semantically equivalent reports 
 same logical data.
 
 ### S03 — Complete the CLI filters
+
+Status: [ ] Pending.
 
 Depends on: S02, W09. Estimate: 2 hours.
 
@@ -663,6 +791,8 @@ failure, `UNCERTAIN`, and no-result success.
 
 ### S04 — Prove portable static exports
 
+Status: [ ] Pending.
+
 Depends on: S03. Estimate: 1.5 hours.
 
 Result: export self-contained JSON and HTML that can be moved and opened without the
@@ -672,6 +802,8 @@ Verify: inspect and open artifacts from a temporary directory; asset, privacy, a
 content-security checks pass.
 
 ### E09 — Calibrate extraction annotation
+
+Status: [ ] Pending.
 
 Depends on: E07, D09. Estimate: 2 hours.
 
@@ -683,6 +815,8 @@ evidence-span, and reviewer-status checks pass.
 
 ### E10 — Review eval cases 13 through 18
 
+Status: [ ] Pending.
+
 Depends on: E09. Estimate: 2–3 hours.
 
 Result: add six independently reviewed cases across missing rule-family and ambiguity
@@ -693,6 +827,8 @@ checks pass for the 18-case dataset.
 
 ### E11 — Review eval cases 19 through 25
 
+Status: [ ] Pending.
+
 Depends on: E10. Estimate: 2–3 hours.
 
 Result: add seven independently reviewed cases that close the planned 25-case slice
@@ -702,6 +838,8 @@ Verify: all dataset checks pass and the deterministic 25-case baseline report is
 versioned.
 
 ### S05 — Close the local MVP gate
+
+Status: [ ] Pending.
 
 Depends on: S04, E08, E11. Estimate: 2 hours.
 
@@ -714,6 +852,8 @@ Verify: all M4 exit conditions pass from a clean worktree without feed or model 
 
 ### A01 — Implement reusable eval metrics
 
+Status: [ ] Pending.
+
 Depends on: E11. Estimate: 3 hours.
 
 Result: compute per-field precision/recall/F1, evidence validity, closed-field exact
@@ -723,6 +863,8 @@ Verify: hand-calculated metric fixtures, empty slices, unknowns, and aggregation
 pass.
 
 ### A02 — Define the provider-neutral generative seam
+
+Status: [ ] Pending.
 
 Depends on: E07, A01. Estimate: 2 hours.
 
@@ -734,6 +876,8 @@ verdict.
 
 ### A03 — Implement the fake provider matrix
 
+Status: [ ] Pending.
+
 Depends on: A02. Estimate: 2 hours.
 
 Result: cover success, timeout, refusal, usage exhaustion, invalid schema, invalid
@@ -743,6 +887,8 @@ Verify: every case becomes a valid extraction result or typed operational failur
 mandatory CI remains offline.
 
 ### A04 — Implement secure ChatGPT authorization
+
+Status: [ ] Pending.
 
 Depends on: A03. Estimate: 3 hours.
 
@@ -754,6 +900,8 @@ refresh race, revocation, and redaction tests use fake endpoints.
 
 ### A05 — Implement model discovery and inference
 
+Status: [ ] Pending.
+
 Depends on: A04. Estimate: 2.5 hours.
 
 Result: discover eligible models at runtime and request schema-constrained extraction
@@ -763,6 +911,8 @@ Verify: fake discovery/inference covers no models, entitlement failure, usage li
 stream failure, invalid output, and successful validated facts.
 
 ### A06 — Compare providers on frozen cases
+
+Status: [ ] Pending.
 
 Depends on: A01, A05, L04. Estimate: 3 hours plus inference time.
 
@@ -774,6 +924,8 @@ holdouts or silently omit failures.
 
 ### A07 — Decide whether to spike Ollama
 
+Status: [ ] Pending.
+
 Depends on: A06. Estimate: 1 hour.
 
 Result: state a distinct hypothesis that current adapters cannot answer, estimated local
@@ -783,6 +935,8 @@ Verify: an experiment proceeds only with a predeclared question and budget.
 
 ### A08 — Review eval cases 26 through 32
 
+Status: [ ] Pending.
+
 Depends on: A01. Estimate: 2–3 hours.
 
 Result: add seven reviewed cases targeting the weakest rule-family and ambiguity slices.
@@ -790,6 +944,8 @@ Result: add seven reviewed cases targeting the weakest rule-family and ambiguity
 Verify: dataset checks, reviewer state, slice coverage, and protected cases pass.
 
 ### A09 — Review eval cases 33 through 40
+
+Status: [ ] Pending.
 
 Depends on: A08. Estimate: 2–3 hours.
 
@@ -800,6 +956,8 @@ Verify: dataset checks, leakage checks, length-slice coverage, and baseline rege
 pass.
 
 ### A10 — Review eval cases 41 through 50
+
+Status: [ ] Pending.
 
 Depends on: A09. Estimate: 2–3 hours.
 
@@ -812,6 +970,8 @@ reproducible.
 
 ### P01 — Add the FastAPI adapter
 
+Status: [ ] Pending.
+
 Depends on: S05. Estimate: 2 hours.
 
 Result: add FastAPI only to the API extra and expose liveness/readiness with explicit
@@ -820,6 +980,8 @@ dependency wiring.
 Verify: startup, shutdown, live, ready, dependency failure, and OpenAPI generation pass.
 
 ### P02 — Expose search and job details
+
+Status: [ ] Pending.
 
 Depends on: P01, S01. Estimate: 3 hours.
 
@@ -830,6 +992,8 @@ Verify: response contracts, status codes, query counts, limits, and malicious in
 
 ### P03 — Expose assessments and reports
 
+Status: [ ] Pending.
+
 Depends on: P02, S02. Estimate: 3 hours.
 
 Result: expose assessment and canonical report use cases without recomputing presentation
@@ -838,6 +1002,8 @@ logic; equivalent requests are idempotent for fixed data and policy versions.
 Verify: API, CLI, and direct use cases return semantically equivalent report values.
 
 ### P04 — Measure API behavior
+
+Status: [ ] Pending.
 
 Depends on: P03. Estimate: 2 hours.
 
@@ -849,6 +1015,8 @@ target.
 
 ### P05 — Scaffold the web workspace
 
+Status: [ ] Pending.
+
 Depends on: P03. Estimate: 2.5 hours.
 
 Result: create a locked, strict TypeScript/Next.js workspace only now, with minimal
@@ -859,6 +1027,8 @@ dependency admission records cover every direct package.
 
 ### P06 — Build search and mixed results
 
+Status: [ ] Pending.
+
 Depends on: P05. Estimate: 3 hours.
 
 Result: implement country/role search, supported filters, URL-backed state, loading,
@@ -867,6 +1037,8 @@ error, empty, and mixed-verdict views.
 Verify: component tests cover every state and convey verdicts without color alone.
 
 ### P07 — Build evidence details and methodology
+
+Status: [ ] Pending.
 
 Depends on: P06. Estimate: 3 hours.
 
@@ -878,6 +1050,8 @@ checks pass.
 
 ### P08 — Lock the critical browser journey
 
+Status: [ ] Pending.
+
 Depends on: P07. Estimate: 2.5 hours.
 
 Result: add one seeded Playwright journey from Bolivia data-engineer search to evidence
@@ -887,6 +1061,8 @@ Verify: the journey runs against deterministic data, has no external requests, a
 asserts semantic parity with the report fixture.
 
 ### P09 — Add minimal runtime diagnostics
+
+Status: [ ] Pending.
 
 Depends on: P03, C06. Estimate: 2 hours.
 
@@ -900,6 +1076,8 @@ credentials, raw OAuth data, and private payloads.
 
 ### R01 — Add dbt as an analytical consumer
 
+Status: [ ] Pending.
+
 Depends on: E08, P09. Estimate: 3 hours.
 
 Result: create staging models over operational records without granting dbt ownership of
@@ -909,6 +1087,8 @@ Verify: source contracts, uniqueness, relationship, accepted-value, and freshnes
 pass.
 
 ### R02 — Build quality marts
+
+Status: [ ] Pending.
 
 Depends on: R01. Estimate: 3 hours.
 
@@ -920,6 +1100,8 @@ code.
 
 ### V01 — Review eval cases 51 through 60
 
+Status: [ ] Pending.
+
 Depends on: A10. Estimate: 2–3 hours.
 
 Result: add ten permitted-provenance cases targeting remaining source and rule gaps.
@@ -927,6 +1109,8 @@ Result: add ten permitted-provenance cases targeting remaining source and rule g
 Verify: dataset, provenance, reviewer, leakage, and protected-case checks pass.
 
 ### V02 — Review eval cases 61 through 70
+
+Status: [ ] Pending.
 
 Depends on: V01. Estimate: 2–3 hours.
 
@@ -936,6 +1120,8 @@ Verify: dataset checks pass and unknown/contradiction slice coverage increases a
 
 ### V03 — Review eval cases 71 through 80
 
+Status: [ ] Pending.
+
 Depends on: V02. Estimate: 2–3 hours.
 
 Result: add ten cases targeting engagement and timezone boundary behavior.
@@ -944,6 +1130,8 @@ Verify: dataset checks and the affected rule-family metrics pass.
 
 ### V04 — Review eval cases 81 through 90
 
+Status: [ ] Pending.
+
 Depends on: V03. Estimate: 2–3 hours.
 
 Result: add ten cases targeting length, formatting, Unicode, and adversarial text.
@@ -951,6 +1139,8 @@ Result: add ten cases targeting length, formatting, Unicode, and adversarial tex
 Verify: dataset, evidence-offset, security-fixture, and length-slice checks pass.
 
 ### V05 — Review eval cases 91 through 100
+
+Status: [ ] Pending.
 
 Depends on: V04. Estimate: 2–3 hours.
 
@@ -962,6 +1152,8 @@ reviewer, slice, and protected-case check.
 
 ### V06 — Publish the 100-case quality report
 
+Status: [ ] Pending.
+
 Depends on: V05. Estimate: 2 hours.
 
 Result: publish full deterministic and optional-provider metrics, limitations, and a
@@ -971,6 +1163,8 @@ Verify: the report is reproducible from the committed dataset and failures again
 product targets are explicit.
 
 ### R04 — Harden application inputs and outputs
+
+Status: [ ] Pending.
 
 Depends on: P08. Estimate: 3 hours.
 
@@ -982,6 +1176,8 @@ passes on the hardened path.
 
 ### R05 — Harden containers
 
+Status: [ ] Pending.
+
 Depends on: S05, P08. Estimate: 3 hours.
 
 Result: build minimal non-root backend and web images from digest-pinned bases with
@@ -991,6 +1187,8 @@ Verify: image scan, user/capability inspection, secret/layer inspection, health,
 reproducible rebuild comparison pass.
 
 ### R06 — Generate SBOMs and dependency inventory
+
+Status: [ ] Pending.
 
 Depends on: R05. Estimate: 2 hours.
 
@@ -1002,6 +1200,8 @@ or components fail the release gate.
 
 ### R07 — Create synthetic Pages publication
 
+Status: [ ] Pending.
+
 Depends on: P08, R04. Estimate: 2.5 hours.
 
 Result: generate and publish only the approved synthetic static report with restrictive
@@ -1011,6 +1211,8 @@ Verify: artifact inventory, offline links, content scan, privacy scan, and Pages
 pass.
 
 ### R08 — Create attested release artifacts
+
+Status: [ ] Pending.
 
 Depends on: R06, R07. Estimate: 3 hours.
 
@@ -1022,6 +1224,8 @@ verify from a clean environment.
 
 ### R09 — Rehearse operations
 
+Status: [ ] Pending.
+
 Depends on: C07, R08. Estimate: 3 hours.
 
 Result: document and execute backup, restore, migration, failed ingestion, credential
@@ -1031,6 +1235,8 @@ Verify: restore produces equivalent application state; rerun remains idempotent;
 operator can map a report back to source, extraction, and policy versions.
 
 ### R10 — Perform the clean release audit
+
+Status: [ ] Pending.
 
 Depends on: R02, V06, R04, R08, R09. Estimate: 3 hours.
 
