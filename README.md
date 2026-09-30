@@ -16,6 +16,8 @@ The project is in the architecture and delivery-planning stage. No product imple
 - [Delivery roadmap](docs/roadmap.md) — dependency-driven milestones and release gates.
 - [Step-by-step development plan](docs/development-plan.md) — atomic tasks with
   dependencies, estimates, observable results, and verification criteria.
+- [Runtime support policy](docs/runtime-policy.md) — supported Python and verified
+  development platform.
 - [Architecture decision records](docs/adr/) — concise records of the decisions that should not be rediscovered during implementation.
 
 ## Project governance

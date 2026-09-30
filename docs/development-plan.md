@@ -83,7 +83,7 @@ caches, reports, model weights, and worktree artifacts do not appear as untracke
 
 ### F02 — Record supported runtime policy
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-09-30).
 
 Depends on: F01. Estimate: 1 hour.
 

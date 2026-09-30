@@ -535,6 +535,7 @@ docs/
   architecture.md
   development-plan.md
   roadmap.md
+  runtime-policy.md
 ```
 
 Imports point inward toward domain values and module interfaces. Presentation and orchestration adapters may depend on application modules; the eligibility module depends on neither FastAPI, PostgreSQL, Prefect, nor a model SDK.
