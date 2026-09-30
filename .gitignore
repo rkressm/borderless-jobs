@@ -1,0 +1,59 @@
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+.secrets/
+secrets/
+chatgpt-auth.json
+chatgpt-host.json
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.coverage
+.coverage.*
+htmlcov/
+build/
+dist/
+
+# JavaScript and browser tests
+node_modules/
+.next/
+coverage/
+playwright-report/
+test-results/
+
+# Local databases and service state
+.postgres/
+*.sqlite
+*.sqlite3
+
+# Model weights and local model caches
+models/
+*.gguf
+*.onnx
+*.pt
+*.pth
+*.safetensors
+
+# Generated local output
+.cache/
+.artifacts/
+.worktree/
+.worktrees/
+/artifacts/
+/report/
+/reports/
+
+# Operating-system and editor state
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+*.swo
