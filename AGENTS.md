@@ -9,6 +9,8 @@ databases, model providers, and presentation frameworks.
 - Read `docs/architecture.md` before changing module boundaries or data ownership.
 - Read `docs/development-plan.md` before selecting or sequencing implementation work.
 - Read the relevant ADR before changing an accepted architectural decision.
+- Read `.cursor/rules/supply-chain-security.mdc` before changing dependencies,
+  installers, build inputs, lockfiles, or CI actions.
 - Treat manifests, lockfiles, and executable help as the source of truth for commands.
 
 ## Atomic delivery loop

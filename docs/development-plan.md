@@ -95,7 +95,7 @@ with an actionable message.
 
 ### F03 — Create the minimal Python workspace
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-01).
 
 Depends on: F02. Estimate: 2 hours.
 

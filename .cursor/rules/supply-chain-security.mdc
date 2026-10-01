@@ -1,0 +1,22 @@
+---
+description: Supply-chain controls for dependencies, installers, builds, and CI
+alwaysApply: true
+---
+
+# Supply-chain security
+
+- Prefer the standard library and existing dependencies; add one dependency only when
+  its current task consumes it.
+- Resolve packages from the configured default index with `first-index`; keep TLS
+  verification enabled and reject unreviewed indexes or mirrors.
+- Use `uv sync --locked` for reproducible installs. Change manifests and `uv.lock`
+  together, and review unexpected transitive changes before accepting them.
+- Reference VCS dependencies and CI actions by immutable full commit SHA. Require
+  hashes for direct archive URLs.
+- Inspect provenance, maintainer activity, license, release history, and transitive
+  impact before admission. Record the review in the dependency change.
+- Run downloaded tooling through the locked package manager or a verified, pinned
+  artifact. Treat remote install scripts and lifecycle hooks as untrusted code requiring
+  explicit review.
+- Keep automated dependency updates review-only; run the full affected quality and
+  security gates before merge.

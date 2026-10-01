@@ -1,0 +1,9 @@
+[dependency-groups]
+dev = []
+
+[tool.uv]
+index-strategy = "first-index"
+package = false
+
+[tool.uv.workspace]
+members = ["apps/cli", "packages/*"]

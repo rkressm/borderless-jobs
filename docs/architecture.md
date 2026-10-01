@@ -509,9 +509,11 @@ After the core interfaces stabilize, an MCP server can expose `search_jobs`, `ev
 The planned monorepo layout is:
 
 ```text
+pyproject.toml          # uv workspace and shared dependency groups
+uv.lock                 # reviewed dependency resolution
 apps/
   api/                  # FastAPI transport adapter
-  cli/                  # Typer-based command adapter
+  cli/                  # Command adapter; stdlib placeholder before Typer is consumed
   web/                  # Next.js presentation
 packages/
   domain/               # Shared value objects and invariants

@@ -8,7 +8,27 @@ Instead of trusting a generic `remote` label, the system evaluates geographic re
 
 ## Current status
 
-The project is in the architecture and delivery-planning stage. No product implementation has been generated yet.
+The reproducible Python foundation is in place. Product behavior remains intentionally
+absent until the headless walking-skeleton milestone.
+
+## Development setup
+
+Install every workspace member from the reviewed lockfile:
+
+```bash
+uv sync --locked --all-packages
+```
+
+Check the placeholder CLI and its current behavior test:
+
+```bash
+uv run --frozen --package borderless-cli borderless --help
+uv run --frozen --package borderless-cli python -m unittest discover -s tests -v
+```
+
+The workspace currently has no third-party runtime or development dependency. See the
+repository supply-chain rule before changing a manifest, lockfile, installer, build
+input, or CI action.
 
 ## Planning documents
 
@@ -37,7 +57,7 @@ The project is in the architecture and delivery-planning stage. No product imple
 - Offline, deterministic CI; external feeds and models are never required for pull-request validation.
 - No-cost static demonstration through GitHub Pages before any hosted API deployment.
 
-## Intended first command
+## Target first product command
 
 ```bash
 borderless search --country BO --role data-engineer --format html --output ./report

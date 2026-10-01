@@ -1,0 +1,55 @@
+version = 1
+revision = 3
+requires-python = "==3.12.*"
+
+[manifest]
+members = [
+    "borderless-catalog",
+    "borderless-cli",
+    "borderless-connectors",
+    "borderless-domain",
+    "borderless-eligibility",
+    "borderless-extraction",
+    "borderless-reporting",
+    "borderless-search",
+]
+
+[[package]]
+name = "borderless-catalog"
+version = "0.1.0"
+source = { editable = "packages/catalog" }
+
+[[package]]
+name = "borderless-cli"
+version = "0.1.0"
+source = { editable = "apps/cli" }
+
+[[package]]
+name = "borderless-connectors"
+version = "0.1.0"
+source = { editable = "packages/connectors" }
+
+[[package]]
+name = "borderless-domain"
+version = "0.1.0"
+source = { editable = "packages/domain" }
+
+[[package]]
+name = "borderless-eligibility"
+version = "0.1.0"
+source = { editable = "packages/eligibility" }
+
+[[package]]
+name = "borderless-extraction"
+version = "0.1.0"
+source = { editable = "packages/extraction" }
+
+[[package]]
+name = "borderless-reporting"
+version = "0.1.0"
+source = { editable = "packages/reporting" }
+
+[[package]]
+name = "borderless-search"
+version = "0.1.0"
+source = { editable = "packages/search" }
