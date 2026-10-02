@@ -1,5 +1,44 @@
 [dependency-groups]
-dev = []
+dev = [
+    "coverage==7.16.2",
+    "mypy==2.3.1",
+    "pytest==9.1.1",
+    "ruff==0.16.9",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+show_error_codes = true
+explicit_package_bases = true
+mypy_path = [
+    "apps/cli/src",
+    "packages/catalog/src",
+    "packages/connectors/src",
+    "packages/domain/src",
+    "packages/eligibility/src",
+    "packages/extraction/src",
+    "packages/reporting/src",
+    "packages/search/src",
+]
+files = ["apps/cli/src", "packages", "scripts", "tests"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["borderless"]
+
+[tool.coverage.report]
+show_missing = true
 
 [tool.uv]
 index-strategy = "first-index"

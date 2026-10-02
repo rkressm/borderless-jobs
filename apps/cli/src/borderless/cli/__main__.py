@@ -2,5 +2,4 @@
 
 from borderless.cli import main
 
-
 raise SystemExit(main())

@@ -120,7 +120,7 @@ template; the runtime manifest contains only dependencies used by current code.
 
 ### F05 — Wire the fast quality loop
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-02).
 
 Depends on: F03. Estimate: 2 hours.
 
@@ -132,7 +132,7 @@ each detected before their fixture is removed.
 
 ### F06 — Add architectural import checks
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-02).
 
 Depends on: F05. Estimate: 2 hours.
 

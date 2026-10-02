@@ -17,6 +17,8 @@ small, independently verified tasks from
 - Keep one observable behavior per change and split work that cannot be verified alone.
 - Add or refine a behavior-focused test before or with executable behavior.
 - Run focused checks first, then every affected package-level quality gate.
+- Use `scripts/check-quality.sh all` for the offline format, lint, strict type, test,
+  and branch-coverage loop after `uv sync --locked --all-packages`.
 - Stop on a failing gate; do not stack unrelated work on a red worktree.
 - Justify each new direct dependency and commit its reviewed lockfile change.
 - Use the [dependency policy](docs/dependency-policy.md) and

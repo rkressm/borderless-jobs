@@ -19,16 +19,20 @@ Install every workspace member from the reviewed lockfile:
 uv sync --locked --all-packages
 ```
 
-Check the placeholder CLI and its current behavior test:
+Check the placeholder CLI and run the fast offline quality loop:
 
 ```bash
 uv run --frozen --package borderless-cli borderless --help
-uv run --frozen --package borderless-cli python -m unittest discover -s tests -v
+scripts/check-quality.sh all
 ```
 
-The workspace currently has no third-party runtime or development dependency. See the
-repository supply-chain rule before changing a manifest, lockfile, installer, build
-input, or CI action.
+`scripts/check-quality.sh` also accepts `format`, `lint`, `type`, `imports`, `test`,
+and `coverage` for focused checks. The [import-boundary rules](docs/import-boundaries.md)
+guard the pure core and adapter direction. The loop uses locked development dependencies and runs
+offline after the initial sync. The workspace has no third-party runtime dependency;
+the [F05 admission record](docs/dependency-admission-f05.md) documents the development
+tools. See the repository supply-chain rule before changing a manifest, lockfile,
+installer, build input, or CI action.
 
 ## Planning documents
 
