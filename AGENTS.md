@@ -60,3 +60,4 @@ incomplete even when implementation exists.
 - Namespace ports, containers, databases, caches, and generated output per worktree.
 - Do not edit, clean, stage, or revert changes outside the current task's ownership.
 - Keep commits and migrations additive so concurrent worktrees can rebase safely.
+- Before pushing, follow `.cursor/rules/git-push-safety.mdc` to preserve remote history.

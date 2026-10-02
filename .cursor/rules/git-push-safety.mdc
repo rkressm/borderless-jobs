@@ -1,0 +1,14 @@
+---
+description: Keep remote Git history intact when publishing changes
+alwaysApply: true
+---
+
+# Safe Git publishing
+
+- Never run a forced push: `git push --force`, `git push --force-with-lease`,
+  `git push -f`, or an equivalent forced refspec (such as `+branch`).
+- If a normal push is rejected, fetch the remote state, inspect the divergence,
+  resolve it locally with a merge or rebase as appropriate, run the affected
+  checks, then retry a normal push.
+- If preserving both histories cannot be resolved safely, stop and ask for
+  direction. Do not overwrite remote commits to unblock delivery.
