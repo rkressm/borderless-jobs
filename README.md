@@ -38,6 +38,7 @@ input, or CI action.
   dependencies, estimates, observable results, and verification criteria.
 - [Runtime support policy](docs/runtime-policy.md) — supported Python and verified
   development platform.
+- [Dependency policy](docs/dependency-policy.md) — admission and review of new packages.
 - [Architecture decision records](docs/adr/) — concise records of the decisions that should not be rediscovered during implementation.
 
 ## Project governance

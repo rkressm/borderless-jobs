@@ -19,6 +19,8 @@ small, independently verified tasks from
 - Run focused checks first, then every affected package-level quality gate.
 - Stop on a failing gate; do not stack unrelated work on a red worktree.
 - Justify each new direct dependency and commit its reviewed lockfile change.
+- Use the [dependency policy](docs/dependency-policy.md) and
+  [change template](docs/dependency-change-template.md) for each dependency admission.
 - Update contracts, fixtures, documentation, and ADRs when their meaning changes.
 - Keep credentials, private source payloads, model weights, and generated local reports
   out of Git.

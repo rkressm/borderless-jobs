@@ -108,7 +108,7 @@ no lockfile change.
 
 ### F04 — Create the dependency admission record
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-02).
 
 Depends on: F03. Estimate: 1 hour.
 
