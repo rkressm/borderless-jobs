@@ -34,6 +34,21 @@ the [F05 admission record](docs/dependency-admission-f05.md) documents the devel
 tools. See the repository supply-chain rule before changing a manifest, lockfile,
 installer, build input, or CI action.
 
+`python scripts/worktree_env.py --print` shows the deterministic, shell-safe local
+resource names for this checkout. `python scripts/worktree_env.py` creates an ignored
+Compose environment file and namespaced cache/artifact directories. No absolute
+checkout path is written into that file.
+
+For local PostgreSQL, run `bash scripts/db.sh dev-up` and later
+`bash scripts/db.sh dev-down`. The disposable database uses
+`bash scripts/db.sh test-up` and `bash scripts/db.sh test-down`; stopping or removing
+it does not delete the development volume. Both services bind only to localhost,
+with distinct derived ports and randomly generated, ignored credentials in a
+mode-`0600` worktree file. Read the port and database name with
+`python scripts/worktree_env.py --print`; do not publish the credential file.
+The PostgreSQL image is an official Docker Hub image pinned to an immutable digest;
+review and update that digest deliberately when patching the development database.
+
 ## Planning documents
 
 - [Architecture](docs/architecture.md) — product scope, module interfaces, runtime and data design, AI extraction, eligibility semantics, testing, security, CI/CD, and evolution path.

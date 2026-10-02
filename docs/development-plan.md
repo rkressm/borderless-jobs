@@ -144,7 +144,7 @@ Verify: the legal empty package graph passes; a temporary forbidden framework im
 
 ### F07 — Namespace worktree resources
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-02).
 
 Depends on: F03. Estimate: 2 hours.
 
@@ -156,7 +156,7 @@ tests cover long names and punctuation.
 
 ### F08 — Add PostgreSQL development composition
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-02).
 
 Depends on: F07. Estimate: 2 hours.
 

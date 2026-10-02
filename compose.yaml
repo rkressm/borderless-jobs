@@ -1,0 +1,43 @@
+services:
+  db:
+    profiles: [dev]
+    image: postgres:17.11-trixie@sha256:d74eeac9a635390a49bc21bd49fccd973de707e2a53a76ac49b552b8712ec46f
+    environment:
+      POSTGRES_USER: bj_local
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Generate worktree environment first}
+      POSTGRES_DB: ${POSTGRES_DB:?Generate worktree environment first}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:?Generate worktree environment first}:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"']
+      interval: 2s
+      timeout: 2s
+      retries: 20
+      start_period: 5s
+    security_opt:
+      - no-new-privileges:true
+
+  db-test:
+    profiles: [test]
+    image: postgres:17.11-trixie@sha256:d74eeac9a635390a49bc21bd49fccd973de707e2a53a76ac49b552b8712ec46f
+    environment:
+      POSTGRES_USER: bj_test
+      POSTGRES_PASSWORD: ${POSTGRES_TEST_PASSWORD:?Generate worktree environment first}
+      POSTGRES_DB: ${POSTGRES_TEST_DB:?Generate worktree environment first}
+    ports:
+      - "127.0.0.1:${POSTGRES_TEST_PORT:?Generate worktree environment first}:5432"
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"']
+      interval: 2s
+      timeout: 2s
+      retries: 20
+      start_period: 5s
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  db-data:
