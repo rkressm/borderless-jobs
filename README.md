@@ -61,7 +61,9 @@ The backend CI runs the same offline quality loop and disposable migration cycle
 on Ubuntu 24.04. The workflow grants only repository read access, uses official
 actions pinned by full SHA, and installs a hash-checked `uv` wheel before the
 locked workspace sync. `scripts/check-quality.sh ci` verifies the action pins and
-minimum-rights markers locally.
+minimum-rights markers locally. The [security gates](docs/security-gates.md) add
+dependency review, OSV auditing, tracked-file secret detection, a reviewed license
+inventory, and weekly review-only Dependabot PRs.
 
 ## Planning documents
 

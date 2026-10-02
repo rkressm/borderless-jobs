@@ -193,7 +193,7 @@ development and requires no feed, model, or application secret.
 
 ### F11 — Add supply-chain and secret gates
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-02).
 
 Depends on: F04, F10. Estimate: 3 hours.
 

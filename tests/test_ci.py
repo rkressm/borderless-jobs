@@ -1,6 +1,11 @@
 """The local CI check rejects action drift."""
 
-from scripts.check_ci import ALLOWED_ACTIONS, validate_workflow
+from scripts.check_ci import (
+    ALLOWED_ACTIONS,
+    SECURITY_WORKFLOW,
+    validate_security_workflow,
+    validate_workflow,
+)
 
 
 def test_unpinned_action_is_rejected() -> None:
@@ -24,3 +29,9 @@ def test_known_full_pins_are_accepted() -> None:
     )
 
     assert validate_workflow(workflow) == []
+
+
+def test_security_workflow_has_reviewed_actions_and_gates() -> None:
+    workflow = SECURITY_WORKFLOW.read_text(encoding="utf-8")
+
+    assert validate_security_workflow(workflow) == []

@@ -1,0 +1,56 @@
+name: Supply-chain checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: security-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dependency-review:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/dependency-review-action@2031cfc080254a8a887f58cffee85186f0e49e48 # v4.9.0
+        with:
+          fail-on-severity: low
+          fail-on-scopes: runtime, development, unknown
+
+  audit-and-inventory:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Scan committed source for secrets
+        run: python3 -m scripts.check_secrets
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.12'
+      - name: Install pinned uv wheel
+        run: >-
+          python -m pip install --require-hashes --no-deps --only-binary=:all:
+          -r ci/uv-requirements.txt
+      - name: Install locked workspace
+        run: uv sync --locked --all-packages --all-groups
+      - name: Audit locked dependencies against OSV
+        run: python -m scripts.check_vulnerabilities
+      - name: Inventory and verify dependency licenses
+        run: uv run --locked --all-packages --group migration --offline python -m scripts.license_inventory
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: license-inventory
+          path: .artifacts/worktrees/*/license-inventory.json
+          if-no-files-found: error
+          retention-days: 7
