@@ -1,0 +1,2 @@
+# PyPI wheel for Linux x86-64, verified against the PyPI release JSON on 2026-10-02.
+uv==0.12.22 --hash=sha256:680769ef701922dd93426b73476073411941f51ac46991a6e5c5a6efbf68a713

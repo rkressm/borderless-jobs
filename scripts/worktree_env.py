@@ -31,7 +31,7 @@ def resource_values(checkout: Path) -> dict[str, str]:
     }
 
 
-def write_env(checkout: Path) -> Path:
+def write_env(checkout: Path, *, rotate_test_password: bool = False) -> Path:
     """Create per-worktree directories and a Compose-compatible environment file."""
     values = resource_values(checkout)
     root = checkout.resolve()
@@ -56,8 +56,10 @@ def write_env(checkout: Path) -> Path:
     values["POSTGRES_PASSWORD"] = existing.get(
         "POSTGRES_PASSWORD", secrets.token_urlsafe(32)
     )
-    values["POSTGRES_TEST_PASSWORD"] = existing.get(
-        "POSTGRES_TEST_PASSWORD", secrets.token_urlsafe(32)
+    values["POSTGRES_TEST_PASSWORD"] = (
+        secrets.token_urlsafe(32)
+        if rotate_test_password
+        else existing.get("POSTGRES_TEST_PASSWORD", secrets.token_urlsafe(32))
     )
     descriptor = os.open(
         target, os.O_WRONLY | os.O_CREAT | os.O_TRUNC | os.O_NOFOLLOW, 0o600
@@ -73,12 +75,19 @@ def main() -> None:
     parser.add_argument(
         "--print", action="store_true", help="print values without writing"
     )
+    parser.add_argument(
+        "--rotate-test-password",
+        action="store_true",
+        help="replace the disposable database password without printing it",
+    )
     args = parser.parse_args()
+    if args.print and args.rotate_test_password:
+        parser.error("--print and --rotate-test-password are mutually exclusive")
     if args.print:
         for key, value in resource_values(ROOT).items():
             print(f"{key}={value}")
     else:
-        print(write_env(ROOT))
+        print(write_env(ROOT, rotate_test_password=args.rotate_test_password))
 
 
 if __name__ == "__main__":

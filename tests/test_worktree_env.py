@@ -47,6 +47,22 @@ def test_generated_environment_is_local_and_repeatable(tmp_path: Path) -> None:
     assert (tmp_path / resource_values(tmp_path)["WORKTREE_ARTIFACTS_DIR"]).is_dir()
 
 
+def test_rotating_test_password_preserves_development_password(tmp_path: Path) -> None:
+    output = write_env(tmp_path)
+    before = dict(
+        line.split("=", 1)
+        for line in (tmp_path / output).read_text(encoding="utf-8").splitlines()
+    )
+    write_env(tmp_path, rotate_test_password=True)
+    after = dict(
+        line.split("=", 1)
+        for line in (tmp_path / output).read_text(encoding="utf-8").splitlines()
+    )
+
+    assert after["POSTGRES_PASSWORD"] == before["POSTGRES_PASSWORD"]
+    assert after["POSTGRES_TEST_PASSWORD"] != before["POSTGRES_TEST_PASSWORD"]
+
+
 def test_symlinked_environment_file_is_rejected(tmp_path: Path) -> None:
     target = tmp_path / ".worktree" / resource_values(tmp_path)["WORKTREE_ID"]
     target.mkdir(parents=True)

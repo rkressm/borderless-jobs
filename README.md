@@ -49,6 +49,20 @@ mode-`0600` worktree file. Read the port and database name with
 The PostgreSQL image is an official Docker Hub image pinned to an immutable digest;
 review and update that digest deliberately when patching the development database.
 
+The optional `migration` dependency group owns Alembic and Psycopg. Run
+`uv sync --locked --all-packages --all-groups` before
+`bash scripts/check-migrations.sh` to test the empty baseline migration against
+a disposable database. For a running development database, use
+`uv run --locked --all-packages --group migration python -m scripts.migrate dev upgrade head`.
+The [F09 admission record](docs/dependency-admission-f09.md) documents the added
+packages. No catalog tables exist yet.
+
+The backend CI runs the same offline quality loop and disposable migration cycle
+on Ubuntu 24.04. The workflow grants only repository read access, uses official
+actions pinned by full SHA, and installs a hash-checked `uv` wheel before the
+locked workspace sync. `scripts/check-quality.sh ci` verifies the action pins and
+minimum-rights markers locally.
+
 ## Planning documents
 
 - [Architecture](docs/architecture.md) — product scope, module interfaces, runtime and data design, AI extraction, eligibility semantics, testing, security, CI/CD, and evolution path.

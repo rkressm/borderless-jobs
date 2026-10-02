@@ -168,7 +168,7 @@ no port or container name is globally hard-coded.
 
 ### F09 — Establish migration plumbing
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-02).
 
 Depends on: F08. Estimate: 2 hours.
 
@@ -180,7 +180,7 @@ disposable database.
 
 ### F10 — Add least-privilege CI
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-02).
 
 Depends on: F05, F09. Estimate: 3 hours.
 
