@@ -13,6 +13,11 @@ absent until the headless walking-skeleton milestone.
 
 ## Development setup
 
+The exact fresh-checkout procedure, prerequisites, timings, and failure paths
+are in the [clean setup guide](docs/clean-setup.md). The
+[concurrent worktree check](docs/worktree-isolation.md) shows how to verify
+isolated quality loops and disposable databases.
+
 Install every workspace member from the reviewed lockfile:
 
 ```bash

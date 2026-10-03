@@ -205,7 +205,7 @@ detected without committing a usable credential.
 
 ### F12 — Prove concurrent worktrees
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-04).
 
 Depends on: F07, F08, F10. Estimate: 2 hours.
 
@@ -217,7 +217,7 @@ separate; stopping one environment does not affect the other.
 
 ### F13 — Rehearse clean setup
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-04).
 
 Depends on: F11, F12. Estimate: 2 hours.
 
