@@ -118,11 +118,27 @@ source = { editable = "packages/extraction" }
 name = "borderless-reporting"
 version = "0.1.0"
 source = { editable = "packages/reporting" }
+dependencies = [
+    { name = "borderless-domain" },
+    { name = "borderless-search" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "borderless-domain", editable = "packages/domain" },
+    { name = "borderless-search", editable = "packages/search" },
+]
 
 [[package]]
 name = "borderless-search"
 version = "0.1.0"
 source = { editable = "packages/search" }
+dependencies = [
+    { name = "borderless-domain" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "borderless-domain", editable = "packages/domain" }]
 
 [[package]]
 name = "colorama"

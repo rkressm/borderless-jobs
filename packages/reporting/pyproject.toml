@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Report contract and renderer namespace for Borderless Jobs"
 requires-python = ">=3.12,<3.13"
 license = "MIT"
-dependencies = []
+dependencies = ["borderless-domain", "borderless-search"]
 
 [build-system]
 requires = ["uv_build==0.12.22"]
@@ -12,3 +12,7 @@ build-backend = "uv_build"
 
 [tool.uv.build-backend]
 module-name = "borderless.reporting"
+
+[tool.uv.sources]
+borderless-domain = { workspace = true }
+borderless-search = { workspace = true }

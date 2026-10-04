@@ -230,7 +230,7 @@ practical; record elapsed time and any prerequisite not installed by the project
 
 ### W01 — Declare package ownership
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-04).
 
 Depends on: F13. Estimate: 1 hour.
 
@@ -241,7 +241,7 @@ Verify: import checks pass and no package exposes infrastructure or framework ty
 
 ### W02 — Define foundational value objects
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-04).
 
 Depends on: W01. Estimate: 2 hours.
 
@@ -252,7 +252,7 @@ Verify: construction, equality, invalid input, and serialization tests pass.
 
 ### W03 — Define the search contract
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-04).
 
 Depends on: W02. Estimate: 1.5 hours.
 
@@ -262,7 +262,7 @@ Verify: normalization, invalid filters, explicit pagination, and round-trip test
 
 ### W04 — Define the canonical report
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-04).
 
 Depends on: W02, W03. Estimate: 2 hours.
 
