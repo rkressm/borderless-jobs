@@ -42,6 +42,17 @@ incomplete even when implementation exists.
 - Preserve raw source data privately; evidence offsets target an immutable canonical
   normalized-text version.
 
+## Readability and simplicity
+
+- Keep functions focused on one responsibility and aim for at most 15 lines where
+  practical. Allow longer functions when splitting would make the flow harder to
+  follow; preserve readability over a mechanical line limit.
+- Use descriptive variable and function names that reflect their domain meaning
+  and purpose. Use consistent vocabulary and naming conventions across the codebase.
+- Choose the simplest implementation that satisfies the current requirement.
+  Introduce abstractions, configuration, and generalization only when a concrete
+  need justifies them; keep complexity proportional to the problem.
+
 ## Quality and security
 
 - Prefer the standard library or an existing dependency. Justify every new direct
