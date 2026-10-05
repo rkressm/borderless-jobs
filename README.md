@@ -24,7 +24,7 @@ Install every workspace member from the reviewed lockfile:
 uv sync --locked --all-packages
 ```
 
-Check the placeholder CLI and run the fast offline quality loop:
+Check the CLI and run the fast offline quality loop:
 
 ```bash
 uv run --frozen --package borderless-cli borderless --help

@@ -318,7 +318,7 @@ offline-open tests pass.
 
 ### W09 — Wire the CLI walking skeleton
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-05).
 
 Depends on: W07, W08. Estimate: 2 hours.
 

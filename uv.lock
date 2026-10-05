@@ -93,6 +93,18 @@ source = { editable = "packages/catalog" }
 name = "borderless-cli"
 version = "0.1.0"
 source = { editable = "apps/cli" }
+dependencies = [
+    { name = "borderless-domain" },
+    { name = "borderless-reporting" },
+    { name = "borderless-search" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "borderless-domain", editable = "packages/domain" },
+    { name = "borderless-reporting", editable = "packages/reporting" },
+    { name = "borderless-search", editable = "packages/search" },
+]
 
 [[package]]
 name = "borderless-connectors"

@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Command-line adapter for Borderless Jobs"
 requires-python = ">=3.12,<3.13"
 license = "MIT"
-dependencies = []
+dependencies = ["borderless-domain", "borderless-reporting", "borderless-search"]
 
 [project.scripts]
 borderless = "borderless.cli:main"
@@ -15,3 +15,8 @@ build-backend = "uv_build"
 
 [tool.uv.build-backend]
 module-name = "borderless.cli"
+
+[tool.uv.sources]
+borderless-domain = { workspace = true }
+borderless-reporting = { workspace = true }
+borderless-search = { workspace = true }

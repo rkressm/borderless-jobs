@@ -1,4 +1,4 @@
-"""Behavior checks for the placeholder command-line adapter."""
+"""Behavior checks for the command-line help contract."""
 
 import io
 import unittest
