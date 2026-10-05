@@ -330,7 +330,7 @@ codes; no database or network is needed.
 
 ### W10 — Lock the end-to-end preview
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-05).
 
 Depends on: W09. Estimate: 1.5 hours.
 

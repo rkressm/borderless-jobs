@@ -60,3 +60,16 @@ entry point's explicitly supported clock makes the journey reproducible without
 adding a test-only public CLI flag. W09 independently tests the installed console
 script. This does not claim live ingestion or production eligibility: all preview
 jobs and facts are synthetic, and unsupported conclusions remain `UNCERTAIN`.
+
+Verified on 2026-10-05 at committed revision `71da074` in the detached
+`.worktrees/w10-preview` checkout. The checkout was clean before installation and
+after all checks. A fresh per-worktree cache and virtual environment received the
+locked install (29 resolved workspace/tooling packages, 27 installed distributions).
+The full offline quality loop passed formatting, lint, strict typing (47 source
+files), architectural imports, CI workflow guards, 126 tests, and 95% overall
+coverage. CLI and renderers retain 100% coverage. Secret scanning and the inventory
+of 21 reviewed third-party package licenses passed in that clean checkout.
+The OSV audit found no vulnerabilities; the disposable migration cycle also passed
+in the original checkout before publication. No dependencies or runtime behavior
+changed in W10. The temporary verification worktree was removed after its clean
+status was confirmed.
