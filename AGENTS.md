@@ -55,6 +55,8 @@ incomplete even when implementation exists.
 
 ## Quality and security
 
+- Ensure all code complies with the repository's quality and security standards
+  throughout implementation, review, and delivery.
 - Prefer the standard library or an existing dependency. Justify every new direct
   dependency by purpose, maintenance, license, provenance, and transitive impact.
 - Keep runtime dependencies minimal and isolate development, AI, and observability
@@ -71,4 +73,9 @@ incomplete even when implementation exists.
 - Namespace ports, containers, databases, caches, and generated output per worktree.
 - Do not edit, clean, stage, or revert changes outside the current task's ownership.
 - Keep commits and migrations additive so concurrent worktrees can rebase safely.
+- Before every push, verify that the tasks being delivered pass the required
+  functional tests, quality and security checks, and applicable CI/CD checks.
+  Run the repository's local CI checks before pushing and verify the remote CI/CD
+  results after pushing before declaring delivery complete. Resolve failures
+  before proceeding; report any checks that cannot be run.
 - Before pushing, follow `.cursor/rules/git-push-safety.mdc` to preserve remote history.
