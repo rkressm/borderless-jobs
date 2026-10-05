@@ -2,7 +2,7 @@
 
 Own immutable versioned SearchReport and job summaries, report building, and rendering. Consume search and domain values; preserve ordering, verdicts, evidence, freshness, unknowns, traces, and attribution. Renderers never decide eligibility.
 
-Public surface: `SearchReport`, `JobResult`, `RuleTrace`, `DataFreshness`, and `SourceAttribution`. Import supported values from `borderless.reporting`; implementation submodules are private. Public contracts use standard-library and Borderless values only.
+Public surface: `ReportBuilder`, `SearchReport`, `JobResult`, `RuleTrace`, `DataFreshness`, and `SourceAttribution`. Import supported values from `borderless.reporting`; implementation submodules are private. Public contracts use standard-library and Borderless values only.
 
 See [architecture](../../docs/architecture.md) and [import rules](../../docs/import-boundaries.md). Run `scripts/check-quality.sh all` from the repository root.
 
@@ -31,3 +31,21 @@ JSON formatting and HTML rendering are separate W07/W08 tasks.
 
 Offline contract verification: `scripts/check-quality.sh all`, including
 `tests/test_report_contract.py`, crosses the actual domain/search/reporting seams.
+
+`ReportBuilder(search, clock, policy_version, schema_version).build(specification)`
+is the application interface shared by future CLI/HTTP adapters. Inject any
+`JobSearch`, a callable returning an aware datetime, and explicit typed versions.
+The clock is called once per build. The use case copies existing assessments,
+evidence, traces, provenance and uncertainty without computing eligibility or filling
+missing evidence. Search-owned facts and candidate coverage do not enter the public
+report. A substituted query, incompatible assessment policy, unsupported schema, or
+invalid clock fails closed through the canonical contracts.
+
+Source metadata sorts by source ID; job order and pre-pagination totals are preserved,
+including empty and out-of-range pages. The report ID is `report-` plus the SHA-256
+of the full report data excluding its ID, encoded as sorted compact UTF-8 JSON.
+Identical data and an identical passed clock yield identical report data and identity;
+a changed snapshot changes the identity. This internal identity encoding is not a
+public renderer (W07 remains pending). A frozen-clock journey with
+`SyntheticSearchAdapter` is covered by `tests/test_report_builder.py`, including
+missing evidence and deterministic round trips. No new dependency is required.

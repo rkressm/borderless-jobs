@@ -273,7 +273,7 @@ Verify: schema and policy versions survive a deterministic serialization round t
 
 ### W05 — Build a synthetic in-memory search adapter
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-05).
 
 Depends on: W03. Estimate: 1.5 hours.
 
@@ -285,7 +285,7 @@ without database or network access.
 
 ### W06 — Add the minimal report-building use case
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-05).
 
 Depends on: W04, W05. Estimate: 2 hours.
 
