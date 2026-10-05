@@ -296,7 +296,7 @@ Verify: a frozen clock produces byte-stable report data; missing evidence stays 
 
 ### W07 — Add the JSON renderer
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-05).
 
 Depends on: W06. Estimate: 1 hour.
 
@@ -306,7 +306,7 @@ Verify: golden contract, UTF-8, deterministic ordering, and stdout behavior pass
 
 ### W08 — Add the safe static HTML renderer
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-05).
 
 Depends on: W06. Estimate: 2.5 hours.
 

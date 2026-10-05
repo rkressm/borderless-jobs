@@ -1,0 +1,298 @@
+{
+  "attributions": [
+    {
+      "name": "Synthetic jobs",
+      "notice": "Invented demonstration data; not actual job listings.",
+      "source_id": "synthetic",
+      "url": "https://example.org"
+    }
+  ],
+  "created_at": "2026-10-05T00:00:00+00:00",
+  "disclaimer": "Informational eligibility assessment; not legal advice.",
+  "freshness": [
+    {
+      "observed_at": "2026-10-01T00:00:00+00:00",
+      "source_id": "synthetic"
+    }
+  ],
+  "jobs": [
+    {
+      "assessed_at": "2026-10-05T00:00:00+00:00",
+      "canonical_url": "https://example.org/jobs/synthetic-01",
+      "company": "Société synthétique",
+      "contradictions": [],
+      "engagement": "UNKNOWN",
+      "evidence": [
+        {
+          "end": 6,
+          "job_version_id": "synthetic-01-v1",
+          "normalization_version": "synthetic-1.0.0",
+          "quote": "Remote",
+          "source_url": "https://example.org/jobs/synthetic-01",
+          "start": 0
+        }
+      ],
+      "geography": "UNKNOWN",
+      "job_id": "synthetic-01",
+      "job_version_id": "synthetic-01-v1",
+      "policy_version": {
+        "value": "1.0.0"
+      },
+      "provenance": [
+        {
+          "extractor_version": "1.0.0",
+          "method": "synthetic",
+          "model": null,
+          "model_revision": null,
+          "prompt_version": null,
+          "provider": "walking-skeleton",
+          "runtime_version": null,
+          "schema_version": {
+            "value": "1.0.0"
+          },
+          "warnings": []
+        }
+      ],
+      "published_at": "2026-09-30T00:00:00+00:00",
+      "source_id": "synthetic",
+      "timezone": "UNKNOWN",
+      "title": "Data Engineer",
+      "trace": [
+        {
+          "dimension": "geography",
+          "evidence": [
+            {
+              "end": 6,
+              "job_version_id": "synthetic-01-v1",
+              "normalization_version": "synthetic-1.0.0",
+              "quote": "Remote",
+              "source_url": "https://example.org/jobs/synthetic-01",
+              "start": 0
+            }
+          ],
+          "explanation": "Prebuilt synthetic assessment: required facts are unverified.",
+          "inputs": [],
+          "outcome": "UNKNOWN",
+          "policy_version": {
+            "value": "1.0.0"
+          },
+          "rule_id": "synthetic.geography.unverified"
+        },
+        {
+          "dimension": "engagement",
+          "evidence": [],
+          "explanation": "Prebuilt synthetic assessment: required facts are unverified.",
+          "inputs": [],
+          "outcome": "UNKNOWN",
+          "policy_version": {
+            "value": "1.0.0"
+          },
+          "rule_id": "synthetic.engagement.unverified"
+        },
+        {
+          "dimension": "timezone",
+          "evidence": [],
+          "explanation": "Prebuilt synthetic assessment: required facts are unverified.",
+          "inputs": [],
+          "outcome": "UNKNOWN",
+          "policy_version": {
+            "value": "1.0.0"
+          },
+          "rule_id": "synthetic.timezone.unverified"
+        }
+      ],
+      "unknowns": [
+        "candidate-country permission",
+        "engagement mechanism",
+        "timezone requirements"
+      ],
+      "verdict": "UNCERTAIN"
+    },
+    {
+      "assessed_at": "2026-10-05T00:00:00+00:00",
+      "canonical_url": "https://example.org/jobs/synthetic-02",
+      "company": "Société synthétique",
+      "contradictions": [],
+      "engagement": "UNKNOWN",
+      "evidence": [
+        {
+          "end": 6,
+          "job_version_id": "synthetic-02-v1",
+          "normalization_version": "synthetic-1.0.0",
+          "quote": "Remote",
+          "source_url": "https://example.org/jobs/synthetic-02",
+          "start": 0
+        }
+      ],
+      "geography": "UNKNOWN",
+      "job_id": "synthetic-02",
+      "job_version_id": "synthetic-02-v1",
+      "policy_version": {
+        "value": "1.0.0"
+      },
+      "provenance": [
+        {
+          "extractor_version": "1.0.0",
+          "method": "synthetic",
+          "model": null,
+          "model_revision": null,
+          "prompt_version": null,
+          "provider": "walking-skeleton",
+          "runtime_version": null,
+          "schema_version": {
+            "value": "1.0.0"
+          },
+          "warnings": []
+        }
+      ],
+      "published_at": "2026-09-30T00:00:00+00:00",
+      "source_id": "synthetic",
+      "timezone": "UNKNOWN",
+      "title": "Data Engineer",
+      "trace": [
+        {
+          "dimension": "geography",
+          "evidence": [
+            {
+              "end": 6,
+              "job_version_id": "synthetic-02-v1",
+              "normalization_version": "synthetic-1.0.0",
+              "quote": "Remote",
+              "source_url": "https://example.org/jobs/synthetic-02",
+              "start": 0
+            }
+          ],
+          "explanation": "Prebuilt synthetic assessment: required facts are unverified.",
+          "inputs": [],
+          "outcome": "UNKNOWN",
+          "policy_version": {
+            "value": "1.0.0"
+          },
+          "rule_id": "synthetic.geography.unverified"
+        },
+        {
+          "dimension": "engagement",
+          "evidence": [],
+          "explanation": "Prebuilt synthetic assessment: required facts are unverified.",
+          "inputs": [],
+          "outcome": "UNKNOWN",
+          "policy_version": {
+            "value": "1.0.0"
+          },
+          "rule_id": "synthetic.engagement.unverified"
+        },
+        {
+          "dimension": "timezone",
+          "evidence": [],
+          "explanation": "Prebuilt synthetic assessment: required facts are unverified.",
+          "inputs": [],
+          "outcome": "UNKNOWN",
+          "policy_version": {
+            "value": "1.0.0"
+          },
+          "rule_id": "synthetic.timezone.unverified"
+        }
+      ],
+      "unknowns": [
+        "candidate-country permission",
+        "engagement mechanism",
+        "timezone requirements"
+      ],
+      "verdict": "UNCERTAIN"
+    },
+    {
+      "assessed_at": "2026-10-05T00:00:00+00:00",
+      "canonical_url": "https://example.org/jobs/synthetic-03",
+      "company": "Société synthétique",
+      "contradictions": [],
+      "engagement": "UNKNOWN",
+      "evidence": [],
+      "geography": "UNKNOWN",
+      "job_id": "synthetic-03",
+      "job_version_id": "synthetic-03-v1",
+      "policy_version": {
+        "value": "1.0.0"
+      },
+      "provenance": [
+        {
+          "extractor_version": "1.0.0",
+          "method": "synthetic",
+          "model": null,
+          "model_revision": null,
+          "prompt_version": null,
+          "provider": "walking-skeleton",
+          "runtime_version": null,
+          "schema_version": {
+            "value": "1.0.0"
+          },
+          "warnings": []
+        }
+      ],
+      "published_at": "2026-09-29T00:00:00+00:00",
+      "source_id": "synthetic",
+      "timezone": "UNKNOWN",
+      "title": "Data Engineer",
+      "trace": [
+        {
+          "dimension": "geography",
+          "evidence": [],
+          "explanation": "Prebuilt synthetic assessment: required facts are unverified.",
+          "inputs": [],
+          "outcome": "UNKNOWN",
+          "policy_version": {
+            "value": "1.0.0"
+          },
+          "rule_id": "synthetic.geography.unverified"
+        },
+        {
+          "dimension": "engagement",
+          "evidence": [],
+          "explanation": "Prebuilt synthetic assessment: required facts are unverified.",
+          "inputs": [],
+          "outcome": "UNKNOWN",
+          "policy_version": {
+            "value": "1.0.0"
+          },
+          "rule_id": "synthetic.engagement.unverified"
+        },
+        {
+          "dimension": "timezone",
+          "evidence": [],
+          "explanation": "Prebuilt synthetic assessment: required facts are unverified.",
+          "inputs": [],
+          "outcome": "UNKNOWN",
+          "policy_version": {
+            "value": "1.0.0"
+          },
+          "rule_id": "synthetic.timezone.unverified"
+        }
+      ],
+      "unknowns": [
+        "candidate-country permission",
+        "engagement mechanism",
+        "timezone requirements",
+        "supporting evidence unavailable"
+      ],
+      "verdict": "UNCERTAIN"
+    }
+  ],
+  "policy_version": {
+    "value": "1.0.0"
+  },
+  "report_id": "report-6fb5f504f11e446f96132958e3231a0aec7a6832f2a5d3b1d272e4069adbfc92",
+  "schema_version": {
+    "value": "1.0.0"
+  },
+  "specification": {
+    "as_of": "2026-10-05T00:00:00+00:00",
+    "country": {
+      "value": "BO"
+    },
+    "limit": 10,
+    "offset": 0,
+    "role": "data-engineer",
+    "sources": [],
+    "verdicts": []
+  },
+  "total": 3
+}

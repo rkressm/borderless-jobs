@@ -8,8 +8,13 @@ from .contracts import (
     SearchReport,
     SourceAttribution,
 )
+from .html_renderer import render_html
+from .json_renderer import render_json, write_json
 
 __all__ = [
+    "render_html",
+    "render_json",
+    "write_json",
     "ReportBuilder",
     "DataFreshness",
     "JobResult",
