@@ -343,7 +343,7 @@ all M1 exit conditions are demonstrated.
 
 ### D01 — Add reviewed geographic reference data
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-06).
 
 Depends on: W02. Estimate: 2 hours.
 
@@ -354,7 +354,7 @@ Verify: schema, uniqueness, alias collision, membership, and version tests pass.
 
 ### D02 — Implement explicit geographic inclusion
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-06).
 
 Depends on: D01. Estimate: 2 hours.
 
