@@ -20,7 +20,11 @@ Internal dependencies point inward:
 The pure `domain` and `eligibility` modules may import only the restricted
 standard-library set in `scripts/check_imports.py`; third-party,
 filesystem, network, process, database, and framework imports fail. New legitimate
-imports require a deliberate policy change. This is a static direct-import guard,
-not proof of purity: dynamic imports, indirect side effects, and clock calls still
-need review and behavior tests. API and worker adapters will be added to this graph
-when their tasks introduce them.
+imports require a deliberate policy change. The same AST gate rejects direct
+`open`, `exec`, `eval`, `__import__`, `now`, `utcnow` and `today` calls,
+including attribute calls and clock class aliases. This is a static guard rather
+than a general proof: indirect side effects and arbitrary supplied callbacks still
+need review. The eligibility runtime test disables file access, sockets and zone
+loading after inputs and IANA zones have been loaded by the caller. Timezone rules
+only consume those objects and the explicit `as_of`. API and worker adapters will
+be added to this graph when their tasks introduce them.

@@ -26,6 +26,8 @@ case "${1:-all}" in
     coverage)
         run_tool coverage run -m pytest
         run_tool coverage report
+        run_tool coverage json -o .coverage.eligibility.json
+        run_tool python -m scripts.check_eligibility_coverage
         ;;
     imports)
         run_tool python scripts/check_imports.py

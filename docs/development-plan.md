@@ -400,7 +400,7 @@ Verify: pass, fail, unknown, conflicting mechanism, and non-legal-advice cases p
 
 ### D06 — Implement timezone policy
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-06).
 
 Depends on: W02. Estimate: 2.5 hours.
 
@@ -412,7 +412,7 @@ and no-constraint cases pass with a frozen clock.
 
 ### D07 — Compose the global verdict
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-06).
 
 Depends on: D04, D05, D06. Estimate: 1.5 hours.
 
@@ -422,7 +422,7 @@ Verify: exhaustive generated combinations match the truth table.
 
 ### D08 — Produce complete rule traces
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-06).
 
 Depends on: D07. Estimate: 2 hours.
 
@@ -433,7 +433,7 @@ Verify: every verdict path has at least one trace entry and stable serialization
 
 ### D09 — Protect the first 12 reviewed cases
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-06).
 
 Depends on: D08. Estimate: 3 hours.
 
@@ -445,7 +445,7 @@ pass; changing a protected verdict fails CI.
 
 ### D10 — Enforce core quality gates
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-06).
 
 Depends on: D09. Estimate: 2 hours.
 

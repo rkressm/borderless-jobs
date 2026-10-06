@@ -37,3 +37,13 @@ def test_relative_import_cannot_cross_forbidden_boundary() -> None:
     violations = check_source("from ..cli import main\n", "eligibility", "fixture.py")
     assert len(violations) == 1
     assert "borderless.cli" in violations[0]
+
+
+def test_eligibility_rejects_hidden_clock_and_builtin_io_calls() -> None:
+    source = "from datetime import datetime as Clock\nClock.now()\nopen('secret')\neval('1')\n"
+    violations = check_source(source, "eligibility", "fixture.py")
+    assert len(violations) == 3
+    assert all(
+        any(name in violation for name in ("now", "open", "eval"))
+        for violation in violations
+    )

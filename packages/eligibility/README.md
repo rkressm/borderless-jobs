@@ -3,7 +3,7 @@
 Evaluate validated facts with immutable domain values. Import domain only; never
 extract facts or perform I/O.
 
-The public surface exposes `GEOGRAPHIC_REFERENCE`, `CountryIdentity`,
+The geographic inclusion surface exposes `GEOGRAPHIC_REFERENCE`, `CountryIdentity`,
 `GeographicRegion`, `GeographicReference`, `GeographicInclusion`,
 `InclusionDecision`, and `evaluate_geographic_inclusion`. Import these from
 `borderless.eligibility`; implementation submodules are private.
@@ -58,5 +58,45 @@ Each decision retains facts, policy/reference versions, rule ID, explanation,
 and an informational, non-legal-advice disclaimer. No provider, law, payroll
 service or personal immigration status is consulted or inferred.
 
-D06–D08 will implement timezone, global composition and complete rule traces.
-These dimensional seams do not change the synthetic CLI preview yet.
+## Timezone and complete assessments (D06–D08)
+
+`WorkingWindow` describes a recurring local half-open window with minute precision;
+an end before the start crosses midnight. Equal endpoints are rejected as ambiguous.
+`TimezoneFact` carries explicit minimum real minutes, mandatory/preference semantics,
+evidence and provenance. Multiple mandatory facts must all be satisfied. Candidate
+availability is supplied explicitly; no default workday is invented.
+
+`evaluate_timezone` receives an aware `as_of` and caller-loaded IANA timezone
+objects. It anchors each required window on the required zone's local date at
+`as_of`, counts actual UTC minutes, and compares candidate daily availability.
+Skipped minutes do not exist; repeated minutes count twice. Missing zones/windows
+or vague preferences produce unknown; an established impossible mandatory overlap
+fails even alongside unresolved facts. Absence is not applicable. The caller owns
+timezone loading and records its tzdata version for replay; eligibility does no I/O.
+
+`compose_verdict` checks all three dimensions: any fail gives NO, otherwise any
+unknown gives UNCERTAIN, otherwise pass/not-applicable gives YES.
+`evaluate_eligibility` accepts immutable `EligibilityInputs` and returns
+`EligibilityAssessment` with ordered geography, engagement, timezone and global
+`EligibilityRuleTrace` entries. Each entry records the selected decision rule,
+policy/reference versions, complete typed inputs, outcome, explanation, missing or
+contradictory facts, and annotation flag. Facts are sorted and deduplicated.
+Serialization uses the domain value contract; no renderer or template is consulted.
+Application wiring of these assessments replaces synthetic decisions in a later
+milestone; the walking-skeleton CLI still uses its frozen synthetic adapter.
+
+## Protected cases and quality gates (D09–D10)
+
+The [synthetic protected corpus](../../evals/README.md) contains 12 independently
+reviewed policy annotations. The offline suite checks exact dimensional/global
+outcomes and annotation flags, evidence spans, strict schema, duplicate cases,
+and byte-stable repeated assessments. Expected labels are separate from unit
+fixtures and changes are visible in the corpus/review diff.
+
+The coverage command enforces at least 90% eligibility branch coverage, separately
+from aggregate backend coverage. Source checks reject forbidden imports, direct
+I/O/dynamic execution and hidden clock calls. A runtime test preloads zones and
+then disables file access, sockets and timezone loading during assessment.
+Representative source mutations remove exclusion precedence or turn FAIL/UNKNOWN
+composition into YES; each must fail the protected eval. These checks execute in
+the existing offline backend CI through `scripts/check-quality.sh all`.

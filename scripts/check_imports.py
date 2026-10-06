@@ -53,6 +53,18 @@ def check_source(source: str, owner: str, location: str) -> list[str]:
     package = f"borderless.{owner}"
 
     for node in ast.walk(tree):
+        if owner in {"domain", "eligibility"} and isinstance(node, ast.Call):
+            name = (
+                node.func.id
+                if isinstance(node.func, ast.Name)
+                else node.func.attr
+                if isinstance(node.func, ast.Attribute)
+                else ""
+            )
+            if name in {"open", "exec", "eval", "__import__", "now", "utcnow", "today"}:
+                violations.append(
+                    f"{location}:{node.lineno}: {owner} must not call {name}"
+                )
         if not isinstance(node, (ast.Import, ast.ImportFrom)):
             continue
         targets: list[str] = []
