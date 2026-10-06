@@ -366,7 +366,7 @@ phrases.
 
 ### D03 — Implement exclusion precedence
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-06).
 
 Depends on: D02. Estimate: 2 hours.
 
@@ -378,7 +378,7 @@ protected exclusion into a pass.
 
 ### D04 — Implement contradiction handling
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-06).
 
 Depends on: D03. Estimate: 1.5 hours.
 
@@ -389,7 +389,7 @@ Verify: contradictory evidence is permutation-invariant and never produces `YES`
 
 ### D05 — Implement engagement policy
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-06).
 
 Depends on: W02. Estimate: 2.5 hours.
 

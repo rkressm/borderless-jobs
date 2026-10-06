@@ -1,4 +1,4 @@
-"""Evaluate one explicit inclusion fact; restriction composition comes in D03/D04."""
+"""Evaluate one explicit inclusion fact; listing composition uses evaluate_geography."""
 
 from dataclasses import dataclass
 
