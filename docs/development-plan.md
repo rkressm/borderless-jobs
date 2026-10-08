@@ -548,7 +548,7 @@ contract without network access.
 
 ### I04 — Define canonical text normalization
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-08).
 
 Depends on: I03. Estimate: 3 hours.
 
