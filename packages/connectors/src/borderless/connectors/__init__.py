@@ -10,6 +10,7 @@ from .contracts import (
     FetchMetadata,
     RawEnvelope,
 )
+from .fixture import FixtureConnector, FixtureKind, FixtureProvenance
 from .policy import JOBICY_POLICY, Redistribution, RemovalRule, SourcePolicy
 
 __all__ = [
@@ -21,6 +22,9 @@ __all__ = [
     "ConnectorFailure",
     "FailureCode",
     "FetchMetadata",
+    "FixtureConnector",
+    "FixtureKind",
+    "FixtureProvenance",
     "RawEnvelope",
     "Redistribution",
     "RemovalRule",

@@ -38,4 +38,16 @@ Datetime inputs require explicit timezones; validation has no hidden clock reads
 All values support strict `to_dict()` / `from_dict()` round trips. Connector schema
 version `1.0.0` is independent of the source governance version. See
 [Jobicy governance](../../docs/jobicy-governance.md) for the first reviewed policy.
-The fixture connector and live transport are separate future tasks (I03 and I06).
+`FixtureConnector.load(path)` reads a UTF-8 JSON recording with explicit
+`FixtureProvenance` (synthetic, licensed, or transformed; origin, license, notes)
+and an ordered `batches` array. Non-synthetic recordings require a reviewed reuse
+license; transformation alone does not establish permission. Recordings are bounded
+to 20 MB and 100 pages, must contain one complete checkpoint chain, and reject
+cycles, disconnected pages, query changes, and policy changes. Fetches are stateless:
+the same checkpoint replays the same page; a new instance can resume it. Validation
+uses recorded fetch times, not today's clock, so fixtures remain reproducible.
+Malformed/unreadable files yield `INVALID_RESPONSE`; unknown or changed checkpoints
+yield `INVALID_CHECKPOINT`. Cross-page repeated jobs remain valid for catalog replay.
+
+`tests/fixtures/connectors` contains only synthetic MIT-licensed recordings.
+The live transport remains a separate future task (I06).

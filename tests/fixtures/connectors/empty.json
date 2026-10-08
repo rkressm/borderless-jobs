@@ -1,0 +1,47 @@
+{
+  "provenance": {
+    "kind": "synthetic",
+    "origin": "Borderless Jobs test authors",
+    "license": "MIT",
+    "notes": "Invented records; no external job content. Second page repeats a job to exercise catalog replay."
+  },
+  "batches": [
+    {
+      "policy": {
+        "source_id": "synthetic",
+        "version": {
+          "value": "1.0.0"
+        },
+        "policy_url": "https://example.com/fixture-policy",
+        "reviewed_on": "2026-10-08",
+        "review_notes": "Entirely invented test data under the repository MIT license.",
+        "minimum_poll_interval_seconds": 3600,
+        "attribution_name": "Synthetic fixtures",
+        "attribution_url": "https://example.com",
+        "attribution_notice": "Synthetic test jobs, MIT licensed.",
+        "canonical_link_required": true,
+        "raw_retention_days": 30,
+        "removal_rule": "hide_closed_purge_on_request",
+        "redistribution": "attributed_summaries",
+        "raw_private": true
+      },
+      "metadata": {
+        "fetch_id": "fixture-1",
+        "source_id": "synthetic",
+        "query_key": "all",
+        "request_url": "https://example.com/fixtures",
+        "started_at": "2026-10-08T00:00:00+00:00",
+        "completed_at": "2026-10-08T00:00:00+00:00",
+        "response_bytes": 0,
+        "status_code": 200,
+        "media_type": "application/json"
+      },
+      "jobs": [],
+      "requested_checkpoint": null,
+      "next_checkpoint": null,
+      "schema_version": {
+        "value": "1.0.0"
+      }
+    }
+  ]
+}

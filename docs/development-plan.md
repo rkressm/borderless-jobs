@@ -536,7 +536,7 @@ tests pass.
 
 ### I03 — Implement the fixture connector
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-08).
 
 Depends on: I02. Estimate: 2 hours.
 
