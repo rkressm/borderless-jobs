@@ -507,9 +507,12 @@ Laya absent.
 
 ## 7. M3 — Governed ingestion and auditable catalog
 
+Active milestone as of 2026-10-08. The optional Laya branch remains pending
+because local RAM is insufficient; it does not block ingestion.
+
 ### I01 — Verify and encode Jobicy governance
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-08).
 
 Depends on: D10. Estimate: 2 hours.
 
