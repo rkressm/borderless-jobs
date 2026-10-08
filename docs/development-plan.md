@@ -524,7 +524,7 @@ policy; uncertain permissions default to private retention.
 
 ### I02 — Define connector contracts
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-08).
 
 Depends on: I01. Estimate: 1.5 hours.
 
