@@ -34,7 +34,8 @@
         "completed_at": "2026-10-08T00:00:00+00:00",
         "response_bytes": 81,
         "status_code": 200,
-        "media_type": "application/json"
+        "media_type": "application/json",
+        "source_metadata_json": "{}"
       },
       "jobs": [
         {
@@ -52,7 +53,7 @@
         "expires_at": "2026-10-09T00:00:00+00:00"
       },
       "schema_version": {
-        "value": "1.0.0"
+        "value": "1.1.0"
       }
     },
     {
@@ -83,7 +84,8 @@
         "completed_at": "2026-10-08T00:00:00+00:00",
         "response_bytes": 81,
         "status_code": 200,
-        "media_type": "application/json"
+        "media_type": "application/json",
+        "source_metadata_json": "{}"
       },
       "jobs": [
         {
@@ -101,7 +103,7 @@
       },
       "next_checkpoint": null,
       "schema_version": {
-        "value": "1.0.0"
+        "value": "1.1.0"
       }
     }
   ]

@@ -560,7 +560,7 @@ and size-limit cases have exact deterministic outputs.
 
 ### I05 — Implement the Jobicy mapper
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-09).
 
 Depends on: I04. Estimate: 2.5 hours.
 

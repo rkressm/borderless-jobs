@@ -1,5 +1,6 @@
 """Immutable ingestion seam; payloads are private, untrusted JSON text."""
 
+import hashlib
 import json
 import math
 from dataclasses import dataclass, field
@@ -46,12 +47,22 @@ class FetchMetadata(Value):
     response_bytes: int
     status_code: int = 200
     media_type: str = "application/json"
+    source_metadata_json: str = field(default="{}", repr=False)
 
     def __post_init__(self) -> None:
         Value.__post_init__(self)
         for value in (self.fetch_id, self.source_id, self.query_key):
             _bounded_identifier(value)
         require_public_url(self.request_url)
+        metadata = json.loads(
+            self.source_metadata_json, parse_constant=_reject_constant
+        )
+        _validate_json_depth(metadata)
+        if (
+            type(metadata) is not dict
+            or len(self.source_metadata_json.encode("utf-8")) > MAX_BATCH_BYTES
+        ):
+            raise ValueError("Source metadata must be a bounded JSON object")
         if self.completed_at < self.started_at:
             raise ValueError("Fetch completion cannot precede start")
         if not 0 <= self.response_bytes <= MAX_BATCH_BYTES:
@@ -72,7 +83,11 @@ def _validate_json_depth(payload: object) -> None:
             raise ValueError("Raw JSON nesting exceeds 64 levels")
         if isinstance(value, float) and not math.isfinite(value):
             raise ValueError("Non-finite JSON numbers are unsupported")
+        if isinstance(value, str):
+            value.encode("utf-8")
         if isinstance(value, dict):
+            for key in value:
+                key.encode("utf-8")
             pending.extend((child, depth + 1) for child in value.values())
         elif isinstance(value, list):
             pending.extend((child, depth + 1) for child in value)
@@ -101,6 +116,18 @@ class RawEnvelope(Value):
             raise ValueError("Raw job payload must be a JSON object")
 
     @property
+    def content_hash(self) -> str:
+        """Stable semantic raw fingerprint; catalog owns versioning decisions."""
+        canonical = json.dumps(
+            json.loads(self.payload_json),
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+            allow_nan=False,
+        )
+        return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+    @property
     def size_bytes(self) -> int:
         try:
             return len(self.payload_json.encode("utf-8"))
@@ -115,11 +142,11 @@ class ConnectorBatch(Value):
     jobs: tuple[RawEnvelope, ...]
     requested_checkpoint: Checkpoint | None = None
     next_checkpoint: Checkpoint | None = None
-    schema_version: SchemaVersion = SchemaVersion("1.0.0")
+    schema_version: SchemaVersion = SchemaVersion("1.1.0")
 
     def __post_init__(self) -> None:
         Value.__post_init__(self)
-        if self.schema_version != SchemaVersion("1.0.0"):
+        if self.schema_version != SchemaVersion("1.1.0"):
             raise ValueError("Unsupported connector schema")
         if self.policy.source_id != self.metadata.source_id:
             raise ValueError("Policy and fetch source must agree")

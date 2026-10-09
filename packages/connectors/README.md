@@ -36,7 +36,7 @@ cycles across pages; the batch can detect only an immediate repeated token.
 
 Datetime inputs require explicit timezones; validation has no hidden clock reads.
 All values support strict `to_dict()` / `from_dict()` round trips. Connector schema
-version `1.0.0` is independent of the source governance version. See
+version `1.1.0` is independent of the source governance version. See
 [Jobicy governance](../../docs/jobicy-governance.md) for the first reviewed policy.
 `FixtureConnector.load(path)` reads a UTF-8 JSON recording with explicit
 `FixtureProvenance` (synthetic, licensed, or transformed; origin, license, notes)
@@ -51,3 +51,27 @@ yield `INVALID_CHECKPOINT`. Cross-page repeated jobs remain valid for catalog re
 
 `tests/fixtures/connectors` contains only synthetic MIT-licensed recordings.
 The live transport remains a separate future task (I06).
+
+## Jobicy mapping
+
+`JobicyQuery` validates page size, taxonomy slug syntax, and bounded plain-text
+keywords, and derives a stable query key. `map_jobicy_response(body, metadata,
+query, checkpoint)` maps an already recorded UTF-8 public Jobs API response without
+I/O. Objects in `jobs` retain their exact JSON substrings, including unknown fields;
+response-level metadata is retained privately in `FetchMetadata.source_metadata_json`.
+Malformed JSON, duplicate keys, changed required field types, inconsistent counts,
+unsupported API majors, bad pagination, and noncanonical listing URLs fail closed.
+Optional fields can be absent; unknown additive metadata is preserved. No verdicts
+or normalized text are emitted by the mapper.
+
+`RawEnvelope.content_hash` is a SHA-256 fingerprint of sorted compact UTF-8 JSON,
+independent of object key order and insignificant JSON whitespace. It covers unknown
+source fields too; catalog identity/versioning decisions remain in the catalog.
+
+The connector schema is now `1.1.0` because fetch metadata gained a private source
+metadata field. Existing synthetic recordings were upgraded; the strict contract
+rejects unsupported schemas rather than interpreting old serialized data silently.
+Mapper fixtures in `tests/fixtures/jobicy` are invented MIT-licensed data matching
+the [official API specification](https://jobicy.com/api/openapi.json), reviewed on
+2026-10-09. Tests prove the mapper and fixture adapter exchange the same batch types,
+and the mapper output passes the I04 normalization seam.

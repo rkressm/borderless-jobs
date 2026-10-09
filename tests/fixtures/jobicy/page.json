@@ -1,0 +1,22 @@
+{
+  "apiVersion": "2.2.19",
+  "documentationUrl": "https://jobicy.com/jobs-rss-feed",
+  "friendlyNotice": "Synthetic Jobicy-shaped test response; MIT licensed.",
+  "jobCount": 1,
+  "lastUpdate": "2026-10-09T10:00:00+00:00",
+  "nextCursor": null,
+  "hasMore": false,
+  "jobs": [
+    {
+      "id": 123456,
+      "url": "https://jobicy.com/jobs/123456-synthetic-engineer",
+      "jobTitle": "Synthetic Data Engineer",
+      "companyName": "Invented Company",
+      "jobDescription": "<p>Remote from Bolivia &amp; LATAM.</p><p>Contractor work.</p>",
+      "pubDate": "2026-10-09T10:00:00+00:00",
+      "customMetadata": {"synthetic": true}
+    }
+  ],
+  "statusCode": 200,
+  "success": true
+}
