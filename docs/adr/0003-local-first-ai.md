@@ -1,6 +1,6 @@
 # ADR-0003: Use Local-First, Provider-Neutral AI
 
-Status: accepted  
+Status: superseded by [ADR-0006](0006-chatgpt-plan-extraction.md) on 2026-10-09\
 Date: 2026-09-30
 
 ## Context

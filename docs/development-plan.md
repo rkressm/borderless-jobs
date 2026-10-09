@@ -1,7 +1,7 @@
 # Borderless Jobs — Step-by-step Development Plan
 
 Status: approved for implementation  
-Last updated: 2026-09-30  
+Last updated: 2026-10-09\
 Companion documents: [architecture](architecture.md), [roadmap](roadmap.md), and
 [ADRs](adr/)
 
@@ -54,7 +54,6 @@ spelling executable and record it in the project configuration.
 flowchart LR
     F[Foundation tasks] --> W[Walking skeleton]
     W --> D[Eligibility core]
-    D --> L[Laya spike]
     D --> I[Ingestion and catalog]
     I --> H[Local headless MVP]
     H --> A[Provider evaluation]
@@ -63,9 +62,9 @@ flowchart LR
     P --> R
 ```
 
-The Laya spike intentionally branches immediately after the first protected eval cases.
-It cannot delay ingestion: if its budget expires or its gate fails, record the result and
-continue on the critical path.
+OpenAI via local ChatGPT plan usage is the preferred optional provider in M5.
+It cannot delay ingestion or the deterministic local MVP. No paid API fallback is
+authorized; see [ADR-0006](adr/0006-chatgpt-plan-extraction.md).
 
 ## 3. M0 — Reproducible, secure, worktree-safe foundation
 
@@ -455,60 +454,24 @@ the module's purity.
 Verify: eligibility has at least 90% branch coverage; mutation or equivalent fault checks
 kill representative precedence and composition defects.
 
-## 6. Early optional branch — Laya decision spike
+## 6. Provider scope revision — 2026-10-09
 
-### L01 — Predeclare the experiment
+Laya is removed from the active roadmap because the development machine cannot support
+its integration. Former tasks L01–L04 are withdrawn, not completed; no Laya adapter,
+weights, dependency, or measured comparison was delivered. Their former 4–6 hour spike
+is no longer a milestone exit gate or a dependency of A06.
 
-Status: [ ] Pending.
-
-Depends on: D09. Estimate: 1 hour.
-
-Result: select one or two bounded decisions, the deterministic baseline, frozen cases,
-precision/recall and protected-case gates, memory ceiling, and the 4–6 hour stop budget.
-
-Verify: the experiment document can decide keep/defer without changing its criteria
-after results are seen.
-
-### L02 — Isolate the Laya runtime
-
-Status: [ ] Pending.
-
-Depends on: L01. Estimate: 1.5 hours.
-
-Result: add Laya only to an optional locked dependency group and a thin experimental
-adapter; model weights remain outside Git and mandatory CI.
-
-Verify: base installation and test suite remain unchanged; missing weights produce an
-actionable skip rather than a failure.
-
-### L03 — Run the bounded comparison
-
-Status: [ ] Pending.
-
-Depends on: L02. Estimate: 2 hours.
-
-Result: execute identical cases through deterministic and Laya paths while recording
-model revision, runtime, latency, memory, scores, and failures.
-
-Verify: outputs are schema-valid and reproducible enough to compare; no Laya result can
-write an eligibility verdict.
-
-### L04 — Record the keep/defer decision
-
-Status: [ ] Pending.
-
-Depends on: L03. Estimate: 1 hour.
-
-Result: publish measured results and either retain a gated optional adapter or remove it
-from the active runtime plan while preserving the report.
-
-Verify: the conclusion follows the predeclared gate; the critical path is green with
-Laya absent.
+The replacement is optional OpenAI extraction through the existing ChatGPT Plus plan
+in an eligible local open-source installation. A00 checks access feasibility; A02–A05
+implement the provider seam, fake failures, authorization, and inference after the
+local deterministic MVP. The paid OpenAI API is deferred until a separate budget and
+scope decision. Ollama remains deferred pending A07 and an explicit resource gate.
 
 ## 7. M3 — Governed ingestion and auditable catalog
 
-Active milestone as of 2026-10-08. The optional Laya branch remains pending
-because local RAM is insufficient; it does not block ingestion.
+Active milestone as of 2026-10-08. The provider scope revision on 2026-10-09 removes
+the unsupported local classifier branch; optional OpenAI work in M5 does not block
+ingestion.
 
 ### I01 — Verify and encode Jobicy governance
 
@@ -851,7 +814,24 @@ document measured latency and limitations.
 
 Verify: all M4 exit conditions pass from a clean worktree without feed or model access.
 
-## 9. M5 — Evaluation and optional providers
+## 9. M5 — Evaluation and optional OpenAI extraction
+
+### A00 — Verify local ChatGPT plan access and predeclare gates
+
+Status: [ ] Pending.
+
+Depends on: D09. Estimate: 1 hour, excluding user authorization.
+
+Result: record current official local open-source eligibility, account/workspace access,
+permitted models, request/schema capabilities, usage constraints, source-data permission,
+and a bounded experiment protocol with frozen cases and precision/evidence gates.
+Do not infer entitlement from a Plus subscription alone. Account access and a completed
+live request are verified only through A04–A05; until then record them as unverified.
+
+Verify: the readiness record separates documented support from account-specific checks,
+predeclares keep/defer criteria, and documents deterministic operation on unavailable
+access or quota. No API key, paid fallback, SDK, or model runtime is introduced here.
+
 
 ### A01 — Implement reusable eval metrics
 
@@ -893,10 +873,12 @@ mandatory CI remains offline.
 
 Status: [ ] Pending.
 
-Depends on: A03. Estimate: 3 hours.
+Depends on: A00, A03. Estimate: 3 hours.
 
 Result: add optional local OAuth/PKCE registration with stable host identity, validated
-tokens/scopes, loopback callback, and protected credential storage fallback.
+tokens/scopes including plan-usage permission, loopback callback, and protected
+credential storage fallback. Persist the issued client registration for the selected
+account/workspace; do not reuse credentials from another tool.
 
 Verify: state, nonce, PKCE, callback binding, token validation, missing permission,
 refresh race, revocation, and redaction tests use fake endpoints.
@@ -907,20 +889,31 @@ Status: [ ] Pending.
 
 Depends on: A04. Estimate: 2.5 hours.
 
-Result: discover eligible models at runtime and request schema-constrained extraction
-using the selected local profile.
+Result: discover eligible OpenAI models at runtime and request extraction using the
+selected local ChatGPT profile. Use the public Responses endpoint with `store: false`
+and `stream: true`, omit unsupported preview parameters, and accept success only after
+`response.completed`. Check schema support for the selected model; all candidate facts
+and canonical evidence spans still pass the provider-neutral validator. Disable tools,
+bound input size, request count, deadlines, and retries locally; quota exhaustion or
+unavailable access returns a typed failure and preserves deterministic extraction.
+Never switch to API-key billing automatically.
 
 Verify: fake discovery/inference covers no models, entitlement failure, usage limit,
-stream failure, invalid output, and successful validated facts.
+stream failure or incomplete completion, unsupported schema/parameters, invalid output,
+and successful validated facts. An opt-in local smoke check confirms actual access;
+credentials and live calls never enter mandatory CI.
 
 ### A06 — Compare providers on frozen cases
 
 Status: [ ] Pending.
 
-Depends on: A01, A05, L04. Estimate: 3 hours plus inference time.
+Depends on: A01, A05. Estimate: 3 hours plus inference time.
 
-Result: compare deterministic, retained Laya, ChatGPT, and any approved experimental
-adapter on identical cases and slices.
+Result: compare deterministic extraction with OpenAI via ChatGPT plan usage on identical
+cases and slices. Record model identity, usage, latency, failures, evidence validity,
+and downstream verdict precision/coverage. Retain optional enrichment only if the
+predeclared A00 gates pass; otherwise record defer and continue deterministically.
+Unavailable account access is an explicit deferred result, never a fabricated eval.
 
 Verify: reports carry prompt/schema/model/runtime versions and never combine mismatched
 holdouts or silently omit failures.

@@ -93,10 +93,15 @@ inventory, and weekly review-only Dependabot PRs.
 - PostgreSQL as the operational system of record.
 - Jobicy as the first live source, with source-specific governance encoded in its connector.
 - Deterministic eligibility rules separated from fallible fact extraction.
-- Deterministic parsers first, Laya for bounded classification, and optional ChatGPT plan or Ollama extraction adapters.
+- Deterministic parsers first; optional OpenAI extraction via locally authorized ChatGPT Plus plan usage.
+- Paid OpenAI API usage is deferred; Ollama requires a separately approved experiment.
 - Canonical versioned JSON report with a static HTML rendering as the first complete user journey.
 - Offline, deterministic CI; external feeds and models are never required for pull-request validation.
 - No-cost static demonstration through GitHub Pages before any hosted API deployment.
+
+ChatGPT Plus is the planned local optional inference path, subject to account access
+and usage limits; the adapter is not implemented yet. Standard API billing is separate
+and no paid fallback is enabled. See [the provider decision](docs/adr/0006-chatgpt-plan-extraction.md).
 
 ## Target first product command
 

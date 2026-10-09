@@ -1,7 +1,7 @@
 # Runtime support policy
 
 Status: active
-Last reviewed: 2026-09-30
+Last reviewed: 2026-10-09
 
 ## Supported runtime
 
@@ -25,13 +25,19 @@ hardware.
 
 - Python 3.12 receives upstream security support through October 2028.
 - It is already available on the verified Ubuntu development machine.
-- Laya requires Python 3.10 or newer and its documented `uv` setup uses Python 3.12.
 - Selecting one conservative minor version reduces lockfile and native-wheel variance
   across local development, CI, database tooling, and optional model runtimes.
 
 The project will review this choice before Python 3.12 reaches end of life, or earlier
 when a required dependency withdraws support or a newer minor provides a measured
 benefit without reducing compatibility.
+
+## Optional inference
+
+The preferred optional provider is OpenAI via local ChatGPT plan usage. It requires
+network access and user authorization but no local model weights or GPU. Python 3.12
+remains supported independently of provider selection. No provider SDK is admitted
+until its consuming task reviews and locks the dependency. Ollama remains experimental.
 
 ## Verification
 
@@ -54,4 +60,3 @@ remediation.
 ## Sources
 
 - [CPython supported versions](https://devguide.python.org/versions/)
-- [Laya installation requirements](https://github.com/NandhaKishorM/laya#installation)

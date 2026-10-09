@@ -1,7 +1,7 @@
 # Borderless Jobs — Delivery Roadmap
 
 Status: approved implementation roadmap  
-Last updated: 2026-09-30  
+Last updated: 2026-10-09\
 Planning model: dependency-driven milestones; estimates are indicative, not deadlines
 
 ## 1. Delivery policy
@@ -123,9 +123,10 @@ entering the eligibility decision path.
 
 Exit gate:
 
-- an early 4–6 hour Laya spike has a recorded keep/defer decision;
+- local ChatGPT plan eligibility and account access have an explicit readiness record;
 - comparisons use the same frozen cases, schema, slices, and evidence validation;
-- ChatGPT plan usage is optional, locally authorized, and securely stored;
+- OpenAI via ChatGPT Plus plan usage is optional, locally authorized, and securely stored;
+- unavailable access or quota preserves deterministic operation without paid fallback;
 - fake adapters cover every error mode in mandatory CI;
 - the reviewed corpus grows through 50 cases toward 100 before public release.
 
@@ -180,6 +181,11 @@ M0 through M7. Optional AI results are reported honestly but do not block the re
 The public demonstration uses synthetic or explicitly reusable data only.
 
 ## 5. Scope control
+
+The 2026-10-09 revision removes Laya and former tasks L01–L04 without claiming an
+experiment was completed. OpenAI via local ChatGPT plan usage replaces it in M5;
+[ADR-0006](adr/0006-chatgpt-plan-extraction.md) records the decision. The local MVP
+remains deterministic. Paid API usage requires a later explicit budget decision.
 
 - Defer Remotive, cross-source deduplication, object storage, Prefect, Redis, MCP,
   accounts, API keys, CV/GitHub matching, and hosted API deployment.

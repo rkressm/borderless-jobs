@@ -1,7 +1,7 @@
 # Borderless Jobs — Architecture
 
 Status: proposed and approved for implementation  
-Last updated: 2026-09-30  
+Last updated: 2026-10-09\
 Primary launch market: technology candidates working from Bolivia  
 
 ## 1. Executive summary
@@ -96,8 +96,8 @@ flowchart LR
     Candidate[Candidate in Bolivia]
     Maintainer[Project maintainer]
     Jobicy[Jobicy API]
-    ChatGPT[ChatGPT plan usage]
-    LocalModels[Laya and optional Ollama]
+    ChatGPT[OpenAI via local ChatGPT plan usage]
+    LocalModels[Ollama deferred experiment]
     GitHub[GitHub Actions and Pages]
     System[Borderless Jobs]
 
@@ -106,7 +106,7 @@ flowchart LR
     Maintainer -->|annotations and rules| System
     Jobicy -->|permitted job feed| System
     System -->|optional structured extraction| ChatGPT
-    System -->|local classification and extraction| LocalModels
+    System -.->|only after resource gate| LocalModels
     GitHub -->|CI and release workflow| System
     System -->|synthetic static demo| GitHub
 ```
@@ -119,9 +119,8 @@ The system does not rely on a remote AI provider for deterministic tests or basi
 flowchart TB
     subgraph External
         Feed[Jobicy feed]
-        Plan[ChatGPT plan provider]
-        Laya[Laya runtime]
-        Ollama[Ollama / Qwen optional]
+        Plan[OpenAI via local ChatGPT plan provider]
+        Ollama[Ollama / Qwen deferred]
     end
 
     subgraph Borderless[Borderless Jobs modular monolith]
@@ -151,8 +150,7 @@ flowchart TB
     Catalog --> DB
     Catalog --> Blobs
     Extraction --> Plan
-    Extraction --> Laya
-    Extraction --> Ollama
+    Extraction -.-> Ollama
     Extraction --> DB
     API --> Search
     API --> Reporting
@@ -216,7 +214,7 @@ class FactExtractor(Protocol):
     def extract(self, document: JobDocument, schema: ExtractionSchema) -> ExtractionResult: ...
 ```
 
-The external seam is provider-neutral. Internally, the implementation can combine deterministic parsers, Laya decisions, and a generative extractor. Provider details do not leak into the catalog or eligibility interfaces.
+The external seam is provider-neutral. Internally, the implementation can combine deterministic parsers and an optional OpenAI extractor via local ChatGPT plan usage. Provider details do not leak into the catalog or eligibility interfaces.
 
 Every fact includes:
 
@@ -343,17 +341,14 @@ These outputs summarize listing evidence. They are not legal advice.
 flowchart LR
     Text[Normalized job text]
     Deterministic[Deterministic parsers]
-    Closed[Laya closed-choice classifier]
-    Open[Optional structured-output provider]
+    Open[Optional OpenAI candidate-fact extraction]
     Validate[Schema and evidence validation]
     Facts[Versioned job facts]
     Rules[Deterministic eligibility engine]
 
     Text --> Deterministic
-    Text --> Closed
     Text --> Open
     Deterministic --> Validate
-    Closed --> Validate
     Open --> Validate
     Validate --> Facts
     Facts --> Rules
@@ -363,26 +358,35 @@ flowchart LR
 
 Deterministic parsers handle explicit country names, known region aliases, timezones, currency, salary ranges, and common contractual phrases.
 
-Laya may handle bounded decisions for which the valid choices are known in advance, such
-as:
+OpenAI via ChatGPT plan usage is the preferred optional provider for additional
+candidate facts, including bounded classification. Laya is removed from the active
+architecture; [ADR-0006](adr/0006-chatgpt-plan-extraction.md) supersedes ADR-0003.
+Ollama/Qwen is deferred until a distinct hypothesis and local resource gate justify it.
+The paid API adapter is deferred until an explicit budget decision.
 
-- whether a location restriction is present;
-- whether contractor engagement is explicitly allowed;
-- which remote-scope class best matches the text.
+ChatGPT Plus is the intended local subscription path, not a standard API billing
+credit or a guarantee of account/model access. Verify local open-source eligibility,
+plan-usage permission, discovered models, schema support, and actual inference before
+claiming availability. Application execution is local; inference sends approved job
+text to OpenAI. Source permissions and disclosure must cover that transfer.
 
-Laya is not used to generate arbitrary skill lists, salaries, countries, or evidence.
-Its zero-shot value is not assumed. After the first 12 protected cases exist, a
-time-boxed spike compares one or two closed decisions with the deterministic baseline.
-The adapter remains optional only if it meets predeclared quality and resource gates on
-the supported CPU-only development profile.
+Keep OAuth credentials in the local Python adapter, outside the web frontend, reports,
+Git, and mandatory CI. Use a separately registered and authorized local profile.
+No paid provider is selected automatically on access failure or quota exhaustion.
+The application remains useful with deterministic parsers alone.
 
-The initial optional generative providers are:
+Requests use the public Responses endpoint, `store: false`, and `stream: true`, following
+the documented preview restrictions. Require a completed response before validating
+candidate facts. Disable tools and treat listing instructions as untrusted text.
+Schema constraints depend on the chosen model and never replace evidence validation.
+Request count, input size, retries, and deadlines are bounded by the adapter.
 
-- ChatGPT plan usage through `Sign in with ChatGPT` for local open-source development;
-- Ollama with a small Qwen model as a local experimental baseline;
-- a future paid OpenAI adapter, evaluated rather than assumed to be superior.
+The authoritative integration sources were reviewed on 2026-10-09:
 
-The runtime discovers permitted ChatGPT plan models rather than hard-coding entitlement assumptions. OAuth credentials stay local and are never available to the web frontend, committed to Git, or used by mandatory CI jobs.
+- [Local open-source plan usage](https://developers.openai.com/siwc/token-sharing-open-source)
+- [Registration and sign-in](https://developers.openai.com/siwc/token-sharing-open-source/sign-in)
+- [Models and inference](https://developers.openai.com/siwc/token-sharing-open-source/models-and-inference)
+- [Preview limitations](https://developers.openai.com/siwc/token-sharing-open-source/preview-limitations)
 
 ### 8.2 Quality gates
 
@@ -519,7 +523,7 @@ packages/
   domain/               # Shared value objects and invariants
   connectors/           # Source connector interface and adapters
   catalog/              # Ingestion, source identity, versions, closure
-  extraction/           # Parsers, Laya, provider adapters, validation
+  extraction/           # Parsers, optional provider adapters, validation
   eligibility/          # Pure rules and geographic policy data
   search/               # Search specification and query implementation
   reporting/            # SearchReport and renderers
@@ -596,7 +600,7 @@ The main branch runs the full deterministic suite, builds the web application an
 
 ### 15.3 Optional model evals
 
-Laya, Ollama, and ChatGPT plan evals run manually or on a trusted local runner. They are not required for ordinary pull requests. A model change records before-and-after metrics and requires review when critical verdict precision falls or a protected eval case changes.
+OpenAI via ChatGPT plan usage and any approved Ollama evals run manually on a trusted local runner. They are not required for ordinary pull requests. A model change records before-and-after metrics and requires review when critical verdict precision falls or a protected eval case changes.
 
 ### 15.4 Releases
 
@@ -676,9 +680,10 @@ Mitigation: source policies are explicit, connector behavior is isolated, raw pr
 
 Mitigation: precision-first rules, hard evidence requirements, protected eval cases, dimensional results, and `UNCERTAIN` as a first-class outcome.
 
-### Weak local model quality
+### Provider quality or access limitations
 
-Mitigation: deterministic baselines, Laya limited to bounded classifications, provider-neutral extraction, published eval results, and no production-quality claim without evidence.
+Mitigation: deterministic baselines, provider-neutral extraction, validated evidence,
+published eval results, explicit quota/access failures, and no automatic paid fallback.
 
 ### Copyright or redistribution problems
 
@@ -699,7 +704,8 @@ The following ADRs capture the decisions that would be expensive to rediscover:
 
 - [ADR-0001: Use a headless modular monolith](adr/0001-headless-modular-monolith.md)
 - [ADR-0002: Separate fact extraction from eligibility](adr/0002-deterministic-eligibility.md)
-- [ADR-0003: Use local-first, provider-neutral AI](adr/0003-local-first-ai.md)
+- [ADR-0003: Use local-first, provider-neutral AI (superseded)](adr/0003-local-first-ai.md)
+- [ADR-0006: Prefer OpenAI via local ChatGPT plan usage](adr/0006-chatgpt-plan-extraction.md)
 - [ADR-0004: Encode source governance in connectors](adr/0004-source-governance.md)
 - [ADR-0005: Deliver a canonical report and static site first](adr/0005-static-report-first.md)
 
@@ -710,8 +716,6 @@ External behavior and source policy assumptions were checked on 2026-09-30:
 - [Jobicy remote jobs API and fair-use guidance](https://jobicy.com/jobs-rss-feed)
 - [Remotive public jobs API](https://remotive.com/remote-jobs/api)
 - [Wellfound terms](https://wellfound.com/terms)
-- [Laya repository](https://github.com/NandhaKishorM/laya)
-- [Laya model card](https://huggingface.co/convaiinnovations/laya)
 - [Ollama structured outputs](https://docs.ollama.com/capabilities/structured-outputs)
 - [OpenAI Sign in with ChatGPT for local open-source tools](https://developers.openai.com/siwc/token-sharing-open-source)
 - [LangGraph overview](https://langchain-ai.github.io/langgraph/)
