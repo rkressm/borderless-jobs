@@ -12,6 +12,7 @@ from .contracts import (
 )
 from .fixture import FixtureConnector, FixtureKind, FixtureProvenance
 from .jobicy import JobicyQuery, map_jobicy_response
+from .live import JobicyConnector
 from .policy import JOBICY_POLICY, Redistribution, RemovalRule, SourcePolicy
 
 __all__ = [
@@ -27,6 +28,7 @@ __all__ = [
     "FixtureKind",
     "FixtureProvenance",
     "JobicyQuery",
+    "JobicyConnector",
     "map_jobicy_response",
     "RawEnvelope",
     "Redistribution",

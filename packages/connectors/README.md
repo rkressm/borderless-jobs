@@ -50,7 +50,7 @@ Malformed/unreadable files yield `INVALID_RESPONSE`; unknown or changed checkpoi
 yield `INVALID_CHECKPOINT`. Cross-page repeated jobs remain valid for catalog replay.
 
 `tests/fixtures/connectors` contains only synthetic MIT-licensed recordings.
-The live transport remains a separate future task (I06).
+The opt-in live connector is documented below.
 
 ## Jobicy mapping
 
@@ -75,3 +75,49 @@ Mapper fixtures in `tests/fixtures/jobicy` are invented MIT-licensed data matchi
 the [official API specification](https://jobicy.com/api/openapi.json), reviewed on
 2026-10-09. Tests prove the mapper and fixture adapter exchange the same batch types,
 and the mapper output passes the I04 normalization seam.
+
+## Opt-in live fetching
+
+`JobicyConnector.live(query, state_path=...)` explicitly creates the live adapter;
+ordinary imports, fixtures and tests make no network requests. Supply a path in the
+current worktree's cache, and reuse the same state file for every Jobicy query.
+The standard-library transport pins the public HTTPS jobs endpoint, verifies TLS
+certificates and hostname, disables environment proxies and redirects, uses a
+project user agent, and requests uncompressed JSON. URLs cannot select another
+host, port, scheme, fragment or resource. No API key or commercial access is used.
+
+Each attempt has a configurable 10-second default socket/read timeout and a read
+loop deadline. Responses are limited to 10 MB, with both Content-Length and streamed
+bytes checked. Compressed and non-JSON responses are rejected, and responses close
+on success/failure. Cancellation is checked before requests, between read chunks,
+and during backoff; a blocked socket operation ends at its timeout rather than
+being interrupted immediately.
+
+At most three attempts retry timeouts, transport failures, and HTTP 408/429/500/502/
+503/504. Exponential delay includes bounded jitter. Numeric or HTTP-date Retry-After
+is honored; delays beyond 30 seconds return a deferred failure without a long sleep.
+The durable gate records server deferral for all subsequent page/pass requests.
+Other statuses, bad JSON/schema, oversized responses and cancellation do not retry.
+Errors expose only typed codes and retry delay, never response bodies or credentials.
+
+The gate uses Linux file locking, bounded reads, private permissions and a symlink
+check. It reserves a new pass before its first network attempt (including failed
+passes), and enforces the hourly source policy across connector instances and process
+restarts. Sequential cursor pages do not consume another pass reservation. Keep the
+file intact and use one ingestion runner per worktree; deleting or choosing another
+state file loses the guard. Later catalog persistence can replace this local gate.
+The connector validates checkpoint source, query and expiry before I/O, preserves
+traversal expiry and rejects out-of-order pages and cursor cycles. Restarted instances
+can resume a persisted checkpoint. Do not share a connector instance between threads.
+
+Manual smoke test from the repository root (one requested job, no raw payload logged):
+
+```bash
+uv run --locked --all-packages --offline python -m scripts.jobicy_smoke --help
+uv run --locked --all-packages --offline python -m scripts.jobicy_smoke --live
+```
+
+`--offline` controls dependency resolution; `--live` explicitly permits the feed
+request. This check requires network access and is excluded from mandatory CI.
+It stores only the polling reservation in the per-worktree cache and prints counts,
+status and schema version. All automated transport tests use synthetic responses.

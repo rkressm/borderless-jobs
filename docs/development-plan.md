@@ -572,7 +572,7 @@ URLs, oversized fields, and stable content hashes.
 
 ### I06 — Add the opt-in live transport
 
-Status: [ ] Pending.
+Status: [x] Complete (2026-10-09).
 
 Depends on: I05. Estimate: 2.5 hours.
 
